@@ -1,0 +1,8 @@
+nav, .nav-wrapper {
+    background-color: blue;
+}
+
+.nav-wrapper {
+    width: 85%;
+    margin: 0 auto;
+}
