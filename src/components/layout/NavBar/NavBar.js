@@ -4,7 +4,10 @@ import { withAuth } from '@okta/okta-react';
 import "./NavBar.css";
 
 export default withAuth(class NavBar extends Component{
-    state = { authenticated: null };
+    state = { 
+        authenticated: null,
+        currentEmail: ""
+    };
 
     checkAuthentication = async() => {
         const authenticated = await this.props.auth.isAuthenticated();
@@ -14,6 +17,8 @@ export default withAuth(class NavBar extends Component{
     }
 
     async componentDidMount() {
+        const OktaToken = JSON.parse(localStorage.getItem("okta-token-storage"));
+
         this.checkAuthentication();
     }
 
@@ -33,13 +38,9 @@ export default withAuth(class NavBar extends Component{
         if (this.state.authenticated === null) return null;
 
         const ifAuth = this.state.authenticated ? (
-            <li>
-                <a onClick={this.logout}>Sign Out</a>
-            </li>
+            <a onClick={this.logout}>Sign Out</a>
         ) : (
-            <li>
-                <a onClick={this.login}>Sign In</a>
-            </li>
+            <a onClick={this.login}>Sign In</a>
         );
 
         return (
@@ -48,24 +49,15 @@ export default withAuth(class NavBar extends Component{
                     <nav>
                         <div className="nav-wrapper">
                             <Link to="/" className="brand-logo">eCards</Link>
-                            <Link to="/" className="sidenav-trigger" data-target="leftNav">
-                                <i className="material-icons">menu</i>
-                            </Link>
                             <ul className="right hide-on-med-and-down">
                                 <li><Link to="/">Home</Link></li>
                                 <li><Link className="modal-trigger" to="/business">My Business</Link></li>
                                 <li><Link to="/">Contact Us</Link></li>
-                                {ifAuth}
+                                <li>{ifAuth}</li>
                             </ul>
                         </div>
                     </nav>
                 </div>
-                <ul className="sidenav" id="leftNav">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link className="modal-trigger" to="/business">My Business</Link></li>
-                    <li><Link to="/">Contact Us</Link></li>
-                    {ifAuth}
-                </ul>
             </header>
         )
     }
