@@ -4,12 +4,12 @@ import OktaSignIn from '@okta/okta-signin-widget';
 import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
 import '@okta/okta-signin-widget/dist/css/okta-theme.css';
 
-export default class    SignInWidget extends Component {
+export default class SignInWidget extends Component {
   componentDidMount() {
     const el = ReactDOM.findDOMNode(this);
     this.widget = new OktaSignIn({
-        logo: "/comingsoon.jpg",
-        baseUrl: this.props.baseUrl
+      baseUrl: this.props.baseUrl,
+      logo: "placeimageinpublic.png"
     });
     this.widget.renderEl({el}, this.props.onSuccess, this.props.onError);
   }
