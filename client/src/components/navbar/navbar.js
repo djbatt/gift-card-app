@@ -26,6 +26,7 @@ export default withAuth(class NavBar extends Component {
 
   login = async() => {
     this.props.auth.login('/');
+    this.handleItemClick();
   }
 
   logout = async() => {
@@ -47,7 +48,6 @@ export default withAuth(class NavBar extends Component {
                             active={activeItem === 'auth'}
                             content='Logout'
                             onClick={this.logout}
-                            onClick={this.handleItemClick}
                         /></Link>
     ) : (
         <Link to="/login">
@@ -57,7 +57,6 @@ export default withAuth(class NavBar extends Component {
                             active={activeItem === 'auth'}
                             content='Login'
                             onClick={this.login}
-                            onClick={this.handleItemClick}
                         /></Link>
     )
     return (
