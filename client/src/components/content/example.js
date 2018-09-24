@@ -1,5 +1,5 @@
 import React from 'react'
-import { Responsive, Segment } from 'semantic-ui-react'
+import { Responsive} from 'semantic-ui-react'
 
 const Example = () => (
   <Responsive>
