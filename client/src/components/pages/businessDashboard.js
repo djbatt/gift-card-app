@@ -3,21 +3,28 @@ import { Grid, Responsive, Segment } from 'semantic-ui-react';
 import SmallScreenMenu from '../layout/businessContent/smallScreenSideNav';
 import WideScreenMenu from "../layout/businessContent/wideSideMenu";
 import Example from '../content/example';
+import API from '../util/API';
 
 export default class businessDashboard extends Component {
-    state = {
-        currentToken: null
-    }
 
     componentDidMount() {
+
         const oktaToken = JSON.parse(localStorage.getItem('okta-token-storage'));
 
-        console.log(oktaToken);
+        const userName = oktaToken.idToken.claims.name;
+        const userEmail = oktaToken.idToken.claims.email;
+        const userUnique = oktaToken.idToken.claims.sub;
         
-        this.setState({
-            currentToken: oktaToken
+        //console.log(oktaToken);
+        
+        // Check if user exists on componentMount, if not saveUser to db
+        API.findUser(userUnique).then((res) => {
+            if (!res.data.length) {
+                API.saveUser({name: userName, email: userEmail, oktaUnique: userUnique});
+            } else {
+                //console.log(res);
+            }
         })
-        
     }
 
     render() {
