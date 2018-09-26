@@ -7,7 +7,7 @@ import NavBar from './layout/topNav/navbar';
 
 //Page Imports
 import Home from './pages/home';
-import Dashboard from './pages/businessDashboard';
+import Business from './pages/business';
 
 //Semantic Imports
 import { Container } from 'semantic-ui-react';
@@ -35,7 +35,7 @@ export default class TotalContainer extends Component {
             <NavBar />
             <Container>
               <Route path="/" exact={true} component={Home} />
-              <SecureRoute path="/business" exact={false} component={Dashboard} />
+              <SecureRoute path="/business" exact={false} component={Business} />
             </Container>
           </div>
           <Route path='/login' render={() => <Login baseUrl='https://dev-395274.oktapreview.com' />} />
