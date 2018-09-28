@@ -1,0 +1,74 @@
+[
+    {
+        "abbreviation": "Jan",
+        "text": "January",
+        "value": "January",
+        "key": "Jan"
+    },
+    {
+        "abbreviation": "Feb",
+        "text": "February",
+        "value": "February",
+        "key": "Feb"
+    },
+    {
+        "abbreviation": "Mar",
+        "text": "March",
+        "value": "March",
+        "key": "Mar"
+    },
+    {
+        "abbreviation": "Apr",
+        "text": "April",
+        "value": "April",
+        "key": "Apr"
+    },
+    {
+        "abbreviation": "May",
+        "text": "May",
+        "value": "May",
+        "key": "May"
+    },
+    {
+        "abbreviation": "Jun",
+        "text": "June",
+        "value": "June",
+        "key": "Jun"
+    },
+    {
+        "abbreviation": "Jul",
+        "text": "July",
+        "value": "July",
+        "key": "Jul"
+    },
+    {
+        "abbreviation": "Aug",
+        "text": "August",
+        "value": "August",
+        "key": "Aug"
+    },
+    {
+        "abbreviation": "Sep",
+        "text": "September",
+        "value": "September",
+        "key": "Sep"
+    },
+    {
+        "abbreviation": "Oct",
+        "text": "October",
+        "value": "October",
+        "key": "Oct"
+    },
+    {
+        "abbreviation": "Nov",
+        "text": "November",
+        "value": "November",
+        "key": "Nov"
+    },
+    {
+        "abbreviation": "Dec",
+        "text": "December",
+        "value": "December",
+        "key": "Dec"
+    }
+]

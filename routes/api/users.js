@@ -5,8 +5,10 @@ const userController = require("../../controllers/userController");
 router.route("/")
   .post(userController.create);
 
+router.route("/addbusiness/:id")
+  .post(userController.addBusinessToUser);
+
 //Matches with "/api/users/:oktaUnique"
 router.route("/:oktaUnique")
   .get(userController.ifExists);
-
 module.exports = router;

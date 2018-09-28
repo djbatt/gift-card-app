@@ -2,12 +2,29 @@ import axios from "axios";
 
 export default {
 
-  findUser: function(oktaUnique) {
-    return axios.get("/api/users/" + oktaUnique);
+  //Save a new business to the db
+  saveBusiness: function(businessData) {
+    return axios.post(`/api/business`, businessData);
   },
 
+  //add a business to the user
+  addBusinessToUser: function(id, businessId) {
+    return axios.post(`/api/users/addbusiness/${id}`, { businessId });
+  },
+
+  //Find a user when the business page loads (by oktaUnique) this is checking if the user exists
+  findUser: function(oktaUnique) {
+    return axios.get(`/api/users/${oktaUnique}`);
+  },
+
+  //Add the user to our db if it doesn't exist
   saveUser: function(userData) {
-    return axios.post("/api/users/", userData);
+    return axios.post(`/api/users/`, userData);
+  },
+
+  //Check if the 
+  ifBusinessExists: function(id) {
+    return axios.get(`/api/business/${id}`)
   }
 
   // // Gets all books

@@ -2,8 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const businessSchema = new Schema({
-    name: {type: String, required: true, index: { unique: true }},
-    dateCreated: {type: Date, default: Date.now, required: true, index: { unique: true }},
+    businessName: {type: String, required: true},
+    businessAddress: {type: String, required: true},
+    firstName: {type: String, required: true},
+    lastName: {type: String, required: true},
+    dateCreated: {type: Date, default: Date.now, required: true},
     user: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 

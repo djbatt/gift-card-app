@@ -5,6 +5,9 @@ const businessController = require("../../controllers/businessController");
 router.route("/")
   .post(businessController.create);
 
+router.route("/:id")
+  .get(businessController.ifBusinessExists);
+
 // Matches with "/api/books/:id"
 // router
 //   .route("/:id")

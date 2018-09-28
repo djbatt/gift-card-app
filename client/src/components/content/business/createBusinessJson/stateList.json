@@ -1,0 +1,257 @@
+[
+    {
+        "text": "Alabama",
+        "key": "AL",
+        "value": "Alabama"
+    },
+    {
+        "text": "Alaska",
+        "key": "AK",
+        "value": "Alaska"
+    },
+    {
+        "text": "Arizona",
+        "key": "AZ",
+        "value": "Arizona"
+    },
+    {
+        "text": "Arkansas",
+        "key": "AR",
+        "value": "Arkansas"
+    },
+    {
+        "text": "California",
+        "key": "CA",
+        "value": "California"
+    },
+    {
+        "text": "Colorado",
+        "key": "CO",
+        "value": "Colorado"
+    },
+    {
+        "text": "Connecticut",
+        "key": "CT",
+        "value": "Connecticut"
+    },
+    {
+        "text": "Delaware",
+        "key": "DE",
+        "value": "Delaware"
+    },
+    {
+        "text": "District of Columbia",
+        "key": "DC",
+        "value": "District of Columbia"
+    },
+    {
+        "text": "Florida",
+        "key": "FL",
+        "value": "Florida"
+    },
+    {
+        "text": "Georgia",
+        "key": "GA",
+        "value": "Georgia"
+    },
+    {
+        "text": "Hawaii",
+        "key": "HI",
+        "value": "Hawaii"
+    },
+    {
+        "text": "Idaho",
+        "key": "ID",
+        "value": "Idaho"
+    },
+    {
+        "text": "Illinois",
+        "key": "IL",
+        "value": "Illinois"
+    },
+    {
+        "text": "Indiana",
+        "key": "IN",
+        "value": "Indiana"
+    },
+    {
+        "text": "Iowa",
+        "key": "IA",
+        "value": "Iowa"
+    },
+    {
+        "text": "Kansa",
+        "key": "KS",
+        "value": "Kansa"
+    },
+    {
+        "text": "Kentucky",
+        "key": "KY",
+        "value": "Kentucky"
+    },
+    {
+        "text": "Lousiana",
+        "key": "LA",
+        "value": "Lousiana"
+    },
+    {
+        "text": "Maine",
+        "key": "ME",
+        "value": "Maine"
+    },
+    {
+        "text": "Maryland",
+        "key": "MD",
+        "value": "Maryland"
+    },
+    {
+        "text": "Massachusetts",
+        "key": "MA",
+        "value": "Massachusetts"
+    },
+    {
+        "text": "Michigan",
+        "key": "MI",
+        "value": "Michigan"
+    },
+    {
+        "text": "Minnesota",
+        "key": "MN",
+        "value": "Minnesota"
+    },
+    {
+        "text": "Mississippi",
+        "key": "MS",
+        "value": "Mississippi"
+    },
+    {
+        "text": "Missouri",
+        "key": "MO",
+        "value": "Missouri"
+    },
+    {
+        "text": "Montana",
+        "key": "MT",
+        "value": "Montana"
+    },
+    {
+        "text": "Nebraska",
+        "key": "NE",
+        "value": "Nebraska"
+    },
+    {
+        "text": "Nevada",
+        "key": "NV",
+        "value": "Nevada"
+    },
+    {
+        "text": "New Hampshire",
+        "key": "NH",
+        "value": "New Hampshire"
+    },
+    {
+        "text": "New Jersey",
+        "key": "NJ",
+        "value": "New Jersey"
+    },
+    {
+        "text": "New Mexico",
+        "key": "NM",
+        "value": "New Mexico"
+    },
+    {
+        "text": "New York",
+        "key": "NY",
+        "value": "New York"
+    },
+    {
+        "text": "North Carolina",
+        "key": "NC",
+        "value": "North Carolina"
+    },
+    {
+        "text": "North Dakota",
+        "key": "ND",
+        "value": "North Dakota"
+    },
+    {
+        "text": "Ohio",
+        "key": "OH",
+        "value": "Ohio"
+    },
+    {
+        "text": "Oklahoma",
+        "key": "OK",
+        "value": "Oklahoma"
+    },
+    {
+        "text": "Oregon",
+        "key": "OR",
+        "value": "Oregon"
+    },
+    {
+        "text": "Pennsylvania",
+        "key": "PA",
+        "value": "Pennsylvania"
+    },
+    {
+        "text": "Rhode Island",
+        "key": "RI",
+        "value": "Rhode Island"
+    },
+    {
+        "text": "South Carolina",
+        "key": "SC",
+        "value": "South Carolina"
+    },
+    {
+        "text": "South Dakota",
+        "key": "SD",
+        "value": "South Dakota"
+    },
+    {
+        "text": "Tennessee",
+        "key": "TN",
+        "value": "Tennessee"
+    },
+    {
+        "text": "Texas",
+        "key": "TX",
+        "value": "Texas"
+    },
+    {
+        "text": "Utah",
+        "key": "UT",
+        "value": "Utah"
+    },
+    {
+        "text": "Vermont",
+        "key": "VT",
+        "value": "Vermont"
+    },
+    {
+        "text": "Virginia",
+        "key": "VA",
+        "value": "Virginia"
+    },
+    {
+        "text": "Washington",
+        "key": "WA",
+        "value": "Washington"
+    },
+    {
+        "text": "West Virginia",
+        "key": "WV",
+        "value": "West Virginia"
+    },
+    {
+        "text": "Wisconsin",
+        "key": "WI",
+        "value": "Wisconsin"
+    },
+    {
+        "text": "Wyoming",
+        "key": "WY",
+        "value": "Wyoming"
+    }
+]
