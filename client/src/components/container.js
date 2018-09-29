@@ -2,9 +2,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-//Util imports
-import API from './util/API';
-
 //Layout Imports
 import NavBar from './layout/topNav/navbar';
 

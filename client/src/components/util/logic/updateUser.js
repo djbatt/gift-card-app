@@ -1,7 +1,5 @@
 import API from '../API';
 
-var uid = {}
-
 export const updateDB = async Token => {
     
     const userName = Token.idToken.claims.name;

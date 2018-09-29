@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Menu, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
-import API from '../../util/API';
 
 export default withAuth(class NavBar extends Component {
     constructor(props) {
@@ -27,15 +26,6 @@ export default withAuth(class NavBar extends Component {
 
     async componentDidUpdate() {
         this.checkAuthentication();
-
-        // const oktaToken = JSON.parse(localStorage.getItem('okta-token-storage'));
-
-        // if (this.isEmpty(oktaToken)) {
-        //     console.log("You have no token!")
-        // } else {
-        //     console.log("You have a token!")
-        //     this.updateDB(oktaToken);
-        // }
     }
 
     login = async () => {
@@ -45,42 +35,6 @@ export default withAuth(class NavBar extends Component {
     logout = async () => {
         this.props.auth.logout('/');
     }
-
-    // isEmpty = (obj) => {
-    //     for (var key in obj) {
-    //         if (obj.hasOwnProperty(key))
-    //             return false;
-    //     }
-    //     return true;
-    // }
-
-    // updateDB = (Token) => {
-
-    //     const userName = Token.idToken.claims.name;
-    //     const userEmail = Token.idToken.claims.email;
-    //     const userUnique = Token.idToken.claims.sub;
-    //     console.log(Token);
-    //     console.log("=============================================")
-
-    //     API.findUser(userUnique).then((res) => {
-    //         // if there is no user, save a user to the db, and store id as uId
-    //         // if you have to save a user, then you have no business and set hasBusiness to false
-    //         if (!res.data.length) {
-    //             console.log(res.data);
-    //             console.log("=============================================");
-
-    //             API.saveUser({ name: userName, email: userEmail, oktaUnique: userUnique }).then((res) => {
-
-    //                 console.log(res.data);
-    //                 console.log("=============================================");
-
-    //             })
-    //         } else {
-    //             console.log("We already have your user saved")
-    //             console.log("=============================================")
-    //         }
-    //     })
-    // }
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
