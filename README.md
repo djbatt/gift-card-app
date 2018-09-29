@@ -49,3 +49,5 @@ To and From which is optional on the client side
 and a message to leave for the recipient
 
 Finally add payment
+
+User signs in, on sign in save the user to our db, only do this once!s
