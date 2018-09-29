@@ -29,7 +29,7 @@ export default class Business extends Component {
       const data = await hasBusiness(this.state.uid)
       console.log("checkBusiness returned", data);
       if (!data.hasBusiness) {
-        this.props.history.push("/business/create");
+        this.props.history.push("/createbusiness/" + this.state.uid);
       }
       this.setState({
         loading: false

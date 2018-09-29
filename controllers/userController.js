@@ -35,7 +35,7 @@ module.exports = {
   //Add a businessId to the user
   addBusinessToUser: function (req, res) {
     db.User
-      .update({ _id: req.params.id }, { $set: { business: req.body.businessId } })
+      .update({ _id: req.params.id }, { $push: { business: req.body.businessId } })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   }
