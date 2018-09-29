@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Responsive, Segment, Form, Header, Button, Checkbox } from 'semantic-ui-react';
 import States from './createBusinessJson/stateList';
-import Alphabet from './createBusinessJson/alphabet';
 import Months from './createBusinessJson/months';
 import API from '../../util/API';
 
@@ -12,26 +11,16 @@ export default class CreateBusiness extends Component {
         businessAddress: '',
         firstName: '',
         lastName: '',
-        uid: '',
+        uId: '',
         agreed: null
     }
 
     componentDidMount() {
-
-        const oktaToken = JSON.parse(localStorage.getItem('okta-token-storage'));
-
-        const userName = oktaToken.idToken.claims.name;
-        const userEmail = oktaToken.idToken.claims.email;
-        const userUnique = oktaToken.idToken.claims.sub;
-        
-        //console.log(oktaToken);
-        
-        // Check if user exists on componentMount, if not saveUser to db
-        API.findUser(userUnique).then((res) => {
-            this.setState({
-                uid: res.data[0]._id
-            })
+        this.setState({
+            uId: this.props.uId
         })
+
+        console.log(this.props);
     }
 
     handleBioChange = event => {
@@ -54,10 +43,14 @@ export default class CreateBusiness extends Component {
                     businessAddress: this.state.businessAddress,
                     firstName: this.state.firstName,
                     lastName: this.state.lastName,
-                    user: this.state.uid
+                    user: this.state.uId
                 }).then(res => {
                     console.log(res.data._id);
-                    API.addBusinessToUser(this.state.uid, res.data._id)
+                    API.addBusinessToUser(this.state.uId, res.data._id)
+                    .then(() => this.props.update())
+                    .catch(err => {
+                        console.log(err);
+                    })
                 }).catch(err => {
                     console.log(err);
                 })
@@ -66,6 +59,7 @@ export default class CreateBusiness extends Component {
             alert("You need to agree to the terms!");
         }
     }
+    
 
     setAgreed = event => {
         event.preventDefault();
@@ -73,6 +67,8 @@ export default class CreateBusiness extends Component {
         this.setState({
             agreed: true
         })
+
+        console.log(this.state.agreed);
     }
 
     render() {

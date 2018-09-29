@@ -66,7 +66,7 @@ export default class SmallScreenMenu extends Component {
           </Sidebar>
 
           <Sidebar.Pusher>
-              <SmallScreenNav Click={this.handleButtonClick}/>
+              <SmallScreenNav businessName={this.props.businessName} Click={this.handleButtonClick}/>
               {this.props.children}
           </Sidebar.Pusher>
         </Sidebar.Pushable>

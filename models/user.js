@@ -6,7 +6,7 @@ const userSchema = new Schema({
     email: {type: String, required: true, index: { unique: true }},
     oktaUnique: {type: String, required: true, index: { unique: true }},
     dateCreated: {type: Date, default: Date.now, required: true},
-    business: {type: Schema.Types.ObjectId, ref: 'Business'}
+    business: [{type: Schema.Types.ObjectId, ref: 'Business'}]
 });
 
 const User = mongoose.model("User", userSchema);

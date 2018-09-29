@@ -7,12 +7,17 @@ export default {
     return axios.post(`/api/business`, businessData);
   },
 
+  getBusiness: function(id) {
+    return axios.get(`/api/business/${id}`);
+  },
+
   //add a business to the user
   addBusinessToUser: function(id, businessId) {
     return axios.post(`/api/users/addbusiness/${id}`, { businessId });
   },
 
-  //Find a user when the business page loads (by oktaUnique) this is checking if the user exists
+  //Find a user when the business page loads (by oktaUnique)
+  //This only returns the _id and oktaUnique, it is a fast check for exist
   findUser: function(oktaUnique) {
     return axios.get(`/api/users/${oktaUnique}`);
   },
@@ -22,25 +27,13 @@ export default {
     return axios.post(`/api/users/`, userData);
   },
 
-  //Check if the 
-  ifBusinessExists: function(id) {
-    return axios.get(`/api/business/${id}`)
+  //check if the user has a business
+  hasBusiness: function(id) {
+    return axios.get(`api/users/ifb/${id}`)
   }
 
-  // // Gets all books
-  // getBooks: function() {
-  //   return axios.get("/api/books");
-  // },
-  // // Gets the book with the given id
-  // getBook: function(id) {
-  //   return axios.get("/api/books/" + id);
-  // },
   // // Deletes the book with the given id
   // deleteBook: function(id) {
   //   return axios.delete("/api/books/" + id);
-  // },
-  // // Saves a book to the database
-  // saveBook: function(bookData) {
-  //   return axios.post("/api/books", bookData);
   // }
 };

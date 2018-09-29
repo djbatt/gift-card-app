@@ -8,8 +8,9 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  ifBusinessExists: function(req, res) {
-    db.Business.find({user: req.params.id}, {user: 1}).limit(1)
+  getBusiness: function(req, res) {
+    db.Business
+    .find({_id: req.params.id})
     .then(dbModel => res.json(dbModel))
     .catch(err => res.status(422).json(err));
   }
