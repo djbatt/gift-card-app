@@ -10,11 +10,11 @@ import Spinner from '../layout/spinner'
 export default class Business extends Component {
 
   state = {
-    uid: '',
+    uId: '',
     businessid: '',
     businessArray: [],
     business: {},
-    loading: true
+    loading: <true></true>
 
   }
 
@@ -24,14 +24,14 @@ export default class Business extends Component {
       const data = await ifToken() //Wait for ifToken to finish before running the next code
       console.log("ifToken returned", data)
       this.setState({
-        uid: data._id
+        uId: data._id
       })
     } catch (e) {
       console.log(e);
     }
 
     try {
-      const data = await hasBusiness(this.state.uid)
+      const data = await hasBusiness(this.state.uId)
       console.log("checkBusiness returned", data);
 
       this.setState({
@@ -46,7 +46,7 @@ export default class Business extends Component {
           this.setState({
             loading: false
           }, () => {
-            this.props.history.push("/createbusiness/" + this.state.uid);
+            this.props.history.push("/createbusiness/" + this.state.uId);
           })
         } else if (dataLength === 1) {
           console.log("One business")
@@ -82,13 +82,15 @@ export default class Business extends Component {
 
   render() {
 
+    const selectPath = `/business/select/${this.state.uId}`;
+
     const ifLoading = this.state.loading ? (
       <Spinner />
     ) : (
         <Grid>
           <Grid.Row columns={2}>
             <Grid.Column as={Responsive} widescreen={3} largeScreen={3} minWidth={1200}>
-              <WideScreenMenu businessName={this.state.business.businessName} uid={this.state.uid}/>
+              <WideScreenMenu businessName={this.state.business.businessName} uId={this.state.uId}/>
             </Grid.Column>
             <Grid.Column as={Responsive} widescreen={13} largeScreen={13} computer={16} tablet={16} mobile={16}>
               <SmallScreenMenu>
@@ -96,7 +98,9 @@ export default class Business extends Component {
               </SmallScreenMenu>
               <Responsive minWidth={1200}>
                 <Segment color='teal'>
-                  <Lipsum />
+                  <Route path="/business" exact={true} component={Lipsum}/>
+                  <Route path="/business/verify" exact={true} component={Lipsum}/>
+                  <Route path={selectPath} exact={false} component={Lipsum}/>
                 </Segment>
               </Responsive>
             </Grid.Column>

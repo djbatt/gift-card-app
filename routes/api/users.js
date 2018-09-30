@@ -14,7 +14,7 @@ router.route("/ifb/:id")
 router.route("/addbusiness/:id")
   .post(userController.addBusinessToUser);
 
-//Matches with "/api/users/:oktaUnique"
+// Matches with "/api/users/:oktaUnique"
 router.route("/:oktaUnique")
   .get(userController.ifExists);
 module.exports = router;

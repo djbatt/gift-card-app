@@ -8,7 +8,7 @@ export default class WideScreenMenu extends Component {
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
-        const createRedirect = "/createbusiness/" + this.props.uid
+        const createRedirect = "/createbusiness/" + this.props.uId;
         const { activeItem } = this.state || {}
 
         return (
@@ -77,7 +77,7 @@ export default class WideScreenMenu extends Component {
                                 name='selectBusiness'
                                 active={activeItem === 'selectBusiness'}
                                 onClick={this.handleItemClick}
-                                content='Change Current Business'
+                                content='Change Selected Business'
                             />
                         </Link>
 

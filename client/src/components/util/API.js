@@ -7,8 +7,14 @@ export default {
     return axios.post(`/api/business`, businessData);
   },
 
+  //get the Business data for single business
   getBusiness: function(id) {
     return axios.get(`/api/business/${id}`);
+  },
+
+  //get all of a user's business'
+  grabMany: function(id) {
+    return axios.get(`/api/business/many/${id}`);
   },
 
   //add a business to the user

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Menu, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
+import { updateDB } from '../../util/logic';
 
 export default withAuth(class NavBar extends Component {
     constructor(props) {
@@ -30,6 +31,13 @@ export default withAuth(class NavBar extends Component {
 
     login = async () => {
         this.props.auth.login('/');
+
+        // try {
+        //     const data = await ifToken()
+
+        // } catch (e) {
+        //     console.log(e);
+        // }
     }
 
     logout = async () => {

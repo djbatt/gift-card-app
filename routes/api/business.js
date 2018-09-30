@@ -5,6 +5,9 @@ const businessController = require("../../controllers/businessController");
 router.route("/")
   .post(businessController.create)
 
+router.route("/many/:id")
+  .get(businessController.getMany);
+
 router.route("/:id")
   .get(businessController.getBusiness);
 

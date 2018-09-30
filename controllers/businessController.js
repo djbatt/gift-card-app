@@ -8,6 +8,13 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  getMany: function(req, res) {
+    db.Business
+    .find({user: req.params.id})
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+  },
+
   getBusiness: function(req, res) {
     db.Business
     .find({_id: req.params.id}).limit(1)

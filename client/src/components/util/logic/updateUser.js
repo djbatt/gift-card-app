@@ -27,6 +27,8 @@ export const updateDB = async Token => {
         console.log("We already have your user saved")
         console.log(res.data);
         console.log("=============================================")
+        console.log(Token);
+        adduId(Token, res.data[0]._id);
         return res.data[0];
     }
 }
@@ -51,6 +53,16 @@ export const ifToken = () => {
         return updateDB(oktaToken);
         
     }
+}
+
+export const adduId = (Token, uId) => {
+    var parsed = Token;
+
+    parsed["userId"] = uId;
+
+    localStorage.setItem('okta-token-storage', JSON.stringify(parsed));
+
+    console.log(Token);
 }
 
 export default ifToken
