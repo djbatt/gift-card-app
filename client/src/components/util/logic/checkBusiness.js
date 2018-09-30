@@ -1,9 +1,6 @@
 import API from '../API';
 
-var businessData = {
-    businessArray: [],
-    hasBusiness: null
-}
+var businessArray = [];
 
 export const hasBusiness = async uId => {
     const res = await API.hasBusiness(uId)
@@ -12,14 +9,21 @@ export const hasBusiness = async uId => {
     console.log(res.data[0]);
     console.log("=============================================");
 
-    if (!res.data[0].business.length) {
-        businessData.hasBusiness = false;
-        return businessData;
-    } else {
-        businessData.hasBusiness = true;
-        businessData.businessArray.push(res.data[0].business[0])
-        return businessData;
-    }
+    businessArray = res.data[0].business;
+
+    // for (var i = 0; i < res.data[0].business.length; i++) {
+    //     businessArray.push(res.data[0].business[i]);
+    // }
+    return businessArray
+
+    // if (!res.data[0].business.length) {
+    //     businessData.hasBusiness = false;
+    //     return businessData;
+    // } else {
+    //     businessData.hasBusiness = true;
+    //     businessData.businessArray.push(res.data[0].business[0])
+    //     return businessData;
+    // }
 }
 
 export default hasBusiness

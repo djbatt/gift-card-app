@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Responsive, Segment, Form, Header, Button, Checkbox } from 'semantic-ui-react';
-import addBusiness from '../util/logic/addBusiness';
+import addBusiness from '../util/logic/addBusiness';    
 import States from '../util/JSON/stateList';
 import Months from '../util/JSON/months';
 
@@ -38,10 +38,10 @@ export default class createBusiness extends Component {
 
     handleBioChange = event => {
         const { name, value } = event.target;
-        const businessInfo = { [name]: value }
-        console.log(businessInfo);
         this.setState({
             [name]: value
+        }, () => {
+            console.log(this.state)
         })
     }
 

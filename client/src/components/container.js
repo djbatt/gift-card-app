@@ -38,7 +38,7 @@ export default class TotalContainer extends Component {
             <Container>
               <Route path="/" exact={true} component={Home} />
               <SecureRoute path="/business" exact={false} component={businessDashboard}/>
-              <SecureRoute path="/createbusiness" exact={false} component={createBusiness} />
+              <SecureRoute path="/createbusiness/:id" exact={true} component={createBusiness} />
             </Container>
           </div>
           <Route path='/login' render={() => <Login baseUrl='https://dev-395274.oktapreview.com' />} />
