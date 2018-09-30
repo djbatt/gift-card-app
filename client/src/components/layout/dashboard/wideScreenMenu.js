@@ -8,6 +8,7 @@ export default class WideScreenMenu extends Component {
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
+        const createRedirect = "/createbusiness/" + this.props.uid
         const { activeItem } = this.state || {}
 
         return (
@@ -63,6 +64,47 @@ export default class WideScreenMenu extends Component {
                                 active={activeItem === 'faq'}
                                 onClick={this.handleItemClick}
                                 content='FAQ'
+                            />
+                        </Link>
+                    </Menu.Menu>
+                </Menu.Item>
+
+                <Menu.Item as='div'>
+                    <Menu.Header>Settings</Menu.Header>
+                    <Menu.Menu>
+                        <Link to="/business/select">
+                            <Menu.Item as='div'
+                                name='selectBusiness'
+                                active={activeItem === 'selectBusiness'}
+                                onClick={this.handleItemClick}
+                                content='Change Current Business'
+                            />
+                        </Link>
+
+                        <Link to={createRedirect}>
+                            <Menu.Item as='div'
+                                name='createBusiness'
+                                active={activeItem === 'createBusiness'}
+                                onClick={this.handleItemClick}
+                                content='Create New Business'
+                            />
+                        </Link>
+
+                        <Link to="/business/modify">
+                            <Menu.Item as='div'
+                                name='editBusiness'
+                                active={activeItem === 'editBusiness'}
+                                onClick={this.handleItemClick}
+                                content='Edit A Business'
+                            />
+                        </Link>
+
+                        <Link to="/business/delete">
+                            <Menu.Item as='div'
+                                name='deleteBusiness'
+                                active={activeItem === 'deleteBusiness'}
+                                onClick={this.handleItemClick}
+                                content='Delete A Business'
                             />
                         </Link>
                     </Menu.Menu>

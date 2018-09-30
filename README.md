@@ -49,3 +49,5 @@ To and From which is optional on the client side
 and a message to leave for the recipient
 
 Finally add payment
+
+User signs in, they go to a business choosing component, it checks if the user has any business(s), if they have only one display the dashboard for it, if they have multiple create a selection for each business, if they have none bring them to create a business

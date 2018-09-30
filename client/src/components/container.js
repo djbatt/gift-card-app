@@ -1,22 +1,23 @@
 // React Imports
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 //Layout Imports
 import NavBar from './layout/topNav/navbar';
 
 //Page Imports
 import Home from './pages/home';
-import Business from './pages/businessDashboard';
+import businessDashboard from './pages/businessDashboard';
+import createBusiness from './pages/createBusiness';
 
 //Semantic Imports
 import { Container } from 'semantic-ui-react';
 
 //Okta
-import { Security, SecureRoute, ImplicitCallback} from '@okta/okta-react';
+import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import Login from './layout/auth/login';
 
-function AuthHandler({history}) {
+function AuthHandler({ history }) {
   history.push('/login');
 }
 
@@ -27,16 +28,17 @@ const config = {
 }
 
 export default class TotalContainer extends Component {
+
   render() {
     return (
       <Router>
         <Security issuer={config.issuer} client_id={config.client_id} redirect_uri={config.redirect_uri} onAuthRequired={AuthHandler}>
           <div>
-            <NavBar />
+            <NavBar/>
             <Container>
               <Route path="/" exact={true} component={Home} />
-              <SecureRoute path="/business" exact={false} component={Business} />
-              <SecureRoute path="/business/create" component={Business} />
+              <SecureRoute path="/business" exact={false} component={businessDashboard}/>
+              <SecureRoute path="/createbusiness/:id" exact={true} component={createBusiness} />
             </Container>
           </div>
           <Route path='/login' render={() => <Login baseUrl='https://dev-395274.oktapreview.com' />} />

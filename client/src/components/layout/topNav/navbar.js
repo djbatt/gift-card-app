@@ -11,6 +11,7 @@ export default withAuth(class NavBar extends Component {
             activeItem: null
         };
     }
+    
 
     checkAuthentication = async () => {
         const authenticated = await this.props.auth.isAuthenticated();
@@ -54,15 +55,15 @@ export default withAuth(class NavBar extends Component {
             </Link>
 
         ) : (
-            <Link to="/login">
-                <Menu.Item as='div'
-                    position='right'
-                    name='auth'
-                    active={activeItem === 'auth'}
-                    content='Login'
-                    onClick={this.login}
-                />
-            </Link>
+                <Link to="/login">
+                    <Menu.Item as='div'
+                        position='right'
+                        name='auth'
+                        active={activeItem === 'auth'}
+                        content='Login'
+                        onClick={this.login}
+                    />
+                </Link>
             )
         return (
             <Menu stackable pointing secondary>
@@ -82,7 +83,7 @@ export default withAuth(class NavBar extends Component {
                             onClick={this.handleItemClick}
                         /></Link>
 
-                        <Link to="/contact">
+                    <Link to="/contact">
                         <Menu.Item as='div'
                             name='contact'
                             active={activeItem === 'contact'}
