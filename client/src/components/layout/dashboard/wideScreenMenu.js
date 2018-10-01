@@ -8,7 +8,6 @@ export default class WideScreenMenu extends Component {
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
-        const createRedirect = "/createbusiness/" + this.props.uId;
         const { activeItem } = this.state || {}
 
         return (
@@ -81,7 +80,7 @@ export default class WideScreenMenu extends Component {
                             />
                         </Link>
 
-                        <Link to={createRedirect}>
+                        <Link to="/createbusiness">
                             <Menu.Item as='div'
                                 name='createBusiness'
                                 active={activeItem === 'createBusiness'}

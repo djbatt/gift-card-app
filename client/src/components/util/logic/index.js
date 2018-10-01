@@ -1,5 +1,5 @@
 export * from './checkBusiness'
 export * from './updateUser'
 export * from './addBusiness'
-export * from './findBusiness'
+export * from './chosenBusiness'
 export * from './grabManyBusiness'

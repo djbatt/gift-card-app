@@ -12,12 +12,24 @@ export default withAuth(class NavBar extends Component {
             activeItem: null
         };
     }
-    
+
+    checkUser = async () => {
+        try {
+            await updateDB()
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
 
     checkAuthentication = async () => {
         const authenticated = await this.props.auth.isAuthenticated();
         if (authenticated !== this.state.authenticated) {
-            this.setState({ authenticated });
+            this.setState({ authenticated }, () => {
+                if (this.state.authenticated) {
+                    this.checkUser()
+                }
+            });
         }
     }
 
@@ -31,13 +43,6 @@ export default withAuth(class NavBar extends Component {
 
     login = async () => {
         this.props.auth.login('/');
-
-        // try {
-        //     const data = await ifToken()
-
-        // } catch (e) {
-        //     console.log(e);
-        // }
     }
 
     logout = async () => {
