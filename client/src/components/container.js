@@ -3,12 +3,11 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 //Layout Imports
-import NavBar from './layout/topNav/navbar';
+import NavBar from './layout/barNav/navbar';
 
 //Page Imports
 import Home from './pages/home';
-import businessDashboard from './pages/businessDashboard';
-import createBusiness from './pages/createBusiness';
+import Dashboard from './pages/business';
 
 //Semantic Imports
 import { Container } from 'semantic-ui-react';
@@ -37,8 +36,7 @@ export default class TotalContainer extends Component {
             <NavBar/>
             <Container>
               <Route path="/" exact={true} component={Home} />
-              <SecureRoute path="/business" exact={false} component={businessDashboard}/>
-              <SecureRoute path="/createbusiness" exact={true} component={createBusiness} />
+              <SecureRoute path="/business" exact={false} component={Dashboard}/>
             </Container>
           </div>
           <Route path='/login' render={() => <Login baseUrl='https://dev-395274.oktapreview.com' />} />

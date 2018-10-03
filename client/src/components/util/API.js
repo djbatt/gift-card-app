@@ -13,9 +13,17 @@ export default {
   },
 
   //get all of a user's business'
-  grabMany: function(id) {
+  getAllBusiness: function(id) {
     return axios.get(`/api/business/many/${id}`);
   },
+
+  //Delete a business
+  deleteBusiness: function(businessID) {
+    return axios.delete(`/api/business/${businessID}`);
+  },
+
+
+  //USER API BELOW
 
   //add a business to the user
   addBusinessToUser: function(id, businessId) {
@@ -35,7 +43,7 @@ export default {
 
   //check if the user has a business
   hasBusiness: function(id) {
-    return axios.get(`api/users/ifb/${id}`)
+    return axios.get(`api/users/ifb/${id}`);
   }
 
   // // Deletes the book with the given id

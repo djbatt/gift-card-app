@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Icon, Menu, Header, Sidebar, Responsive, Divider } from 'semantic-ui-react'
+import { Menu, Sidebar, Responsive, Divider, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
-import SmallScreenNav from "./smallScreenTopNav"
 
 export default class SmallScreenMenu extends Component {
   state = { visible: false }
@@ -13,13 +12,16 @@ export default class SmallScreenMenu extends Component {
   render() {
     const { visible } = this.state
 
+    const clicker = (
+      <Button circular icon='content' color='blue' className='menuButton' onClick={this.handleButtonClick}/>)
+
     return (
       <Responsive maxWidth={1200}>
 
-        <Sidebar.Pushable as={Header} block>
+        <Sidebar.Pushable>
           <Sidebar
             as={Menu}
-            animation='slide along'
+            animation='overlay'
             icon='labeled'
             inverted
             onHide={this.handleSidebarHide}
@@ -65,12 +67,43 @@ export default class SmallScreenMenu extends Component {
               FAQ
             </Menu.Item>
           </Link>
+          
+          <Divider/>
+
+          <Link to="/business/edit">
+            <Menu.Item>
+              Edit
+            </Menu.Item>
+          </Link>
+          
+          <Divider/>
+
+          <Link to="/business/select">
+            <Menu.Item>
+              Change Selected Business
+            </Menu.Item>
+          </Link>
+          
+          <Divider/>
+
+          <Link to="/business/create">
+            <Menu.Item>
+              Create New Business
+            </Menu.Item>
+          </Link>
+          
+          <Divider/>
+
+          <Link to="/business/delete">
+            <Menu.Item>
+              Delete A Business
+            </Menu.Item>
+          </Link>
 
           </Sidebar>
 
           <Sidebar.Pusher dimmed={visible}>
-              <SmallScreenNav businessName={this.props.businessName} Click={this.handleButtonClick}/>
-              {this.props.children}
+            {this.props.children}
           </Sidebar.Pusher>
         </Sidebar.Pushable>
       </Responsive>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { chosenBusiness } from '../../../util/logic';
+import { chosenBusiness } from '../../../../util/logic';
 import { Grid, Responsive, Segment, Loader } from 'semantic-ui-react';
 
 export default class EditBusiness extends Component {

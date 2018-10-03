@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import { Responsive, Segment, Header, Loader, Button, Breadcrumb } from 'semantic-ui-react';
-import { grabMany } from '../../../util/logic';
+import { getAllBusiness } from '../../../../util/logic';
 
-export default class Delete extends Component {
+export default class Select extends Component {
     
     state = {
         businessArray: [],
@@ -17,9 +18,9 @@ export default class Delete extends Component {
             console.log("You have no token yet");
         } else {
             try {
-                const data = await grabMany(Token.userId)
+                const data = await getAllBusiness(Token.userId)
 
-                console.log("grabMany returned:", data);
+                console.log("getAllBusiness returned:", data);
 
                 this.setState({
                     businessArray: data,
@@ -31,9 +32,22 @@ export default class Delete extends Component {
         }
     }
 
-    deleteCurrentBusiness = (businessID) => {
+    addCurrentBusiness = (businessID) => {
+        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
+
+        const parsed = Token;
+    
+        parsed["currentBusiness"] = businessID;
+    
+        localStorage.setItem('okta-token-storage', JSON.stringify(parsed));
         
-        this.props.history.push("/business/select")
+        
+        console.log("Token with businessID")
+        console.log(Token);
+        console.log("=============================================")
+
+        
+        this.props.history.push("/business")
     }
     
 
@@ -44,7 +58,7 @@ export default class Delete extends Component {
                 <Header>
                     {business.businessName}
                 </Header>
-                <Button negative floated='right' type='submit'>Delete Business</Button>
+                <Button positive floated='right' type='submit' onClick={() => {this.addCurrentBusiness(business._id)}}>Select Business</Button>
                 <span>Street Address: {business.streetAddress}</span>
                 <br></br>
                 <span>Email: {business.eMail}</span>
@@ -61,6 +75,19 @@ export default class Delete extends Component {
         ) : (
                 <Responsive>
                     <Segment.Group className='shadow'>
+                        <Segment tertiary>
+                            <Breadcrumb size='big'>
+                                <Link to='/'>
+                                    <Breadcrumb.Section>Home</Breadcrumb.Section>
+                                </Link>
+                                <Breadcrumb.Divider icon='right chevron' />
+                                <Link to='/business'>
+                                    <Breadcrumb.Section>My Business</Breadcrumb.Section>
+                                </Link>
+                                <Breadcrumb.Divider icon='right chevron' />
+                                <Breadcrumb.Section active>Select A Business</Breadcrumb.Section>
+                            </Breadcrumb>
+                        </Segment>
                         {businessList}
                     </Segment.Group>
                 </Responsive>

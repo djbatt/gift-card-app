@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Responsive, Segment, Header, Loader, Button } from 'semantic-ui-react';
-import { grabMany } from '../../../util/logic';
+import { Link } from 'react-router-dom';
+import { Responsive, Segment, Header, Loader, Button, Breadcrumb } from 'semantic-ui-react';
+import { getAllBusiness, DeleteBusiness } from '../../../../util/logic';
 
-export default class Select extends Component {
-    
+export default class Delete extends Component {
+
     state = {
         businessArray: [],
         loading: true
@@ -17,9 +18,9 @@ export default class Select extends Component {
             console.log("You have no token yet");
         } else {
             try {
-                const data = await grabMany(Token.userId)
+                const data = await getAllBusiness(Token.userId)
 
-                console.log("grabMany returned:", data);
+                console.log("getAllBusiness returned:", data);
 
                 this.setState({
                     businessArray: data,
@@ -31,24 +32,17 @@ export default class Select extends Component {
         }
     }
 
-    addCurrentBusiness = (businessID) => {
-        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
-
-        const parsed = Token;
-    
-        parsed["currentBusiness"] = businessID;
-    
-        localStorage.setItem('okta-token-storage', JSON.stringify(parsed));
-        
-        
-        console.log("Token with businessID")
-        console.log(Token);
-        console.log("=============================================")
-
-        
-        this.props.history.push("/business")
+    deleteCurrentBusiness = async (businessID) => {
+        try {
+            console.log(businessID);
+            const data = await DeleteBusiness(businessID)
+            console.log("Delete business returned:", data);
+            this.props.history.push("/business/select")
+        } catch (e) {
+            console.log(e);
+        }
     }
-    
+
 
     render() {
 
@@ -57,7 +51,7 @@ export default class Select extends Component {
                 <Header>
                     {business.businessName}
                 </Header>
-                <Button positive floated='right' type='submit' onClick={() => {this.addCurrentBusiness(business._id)}}>Select Business</Button>
+                <Button negative onClick={() => { this.deleteCurrentBusiness(business._id) }} floated='right' type='submit'>Delete Business</Button>
                 <span>Street Address: {business.streetAddress}</span>
                 <br></br>
                 <span>Email: {business.eMail}</span>
@@ -74,6 +68,19 @@ export default class Select extends Component {
         ) : (
                 <Responsive>
                     <Segment.Group className='shadow'>
+                        <Segment tertiary>
+                            <Breadcrumb size='big'>
+                                <Link to='/'>
+                                    <Breadcrumb.Section>Home</Breadcrumb.Section>
+                                </Link>
+                                <Breadcrumb.Divider icon='right chevron' />
+                                <Link to='/business'>
+                                    <Breadcrumb.Section>My Business</Breadcrumb.Section>
+                                </Link>
+                                <Breadcrumb.Divider icon='right chevron' />
+                                <Breadcrumb.Section active>Delete A Business</Breadcrumb.Section>
+                            </Breadcrumb>
+                        </Segment>
                         {businessList}
                     </Segment.Group>
                 </Responsive>

@@ -95,7 +95,7 @@ export default class WideScreenMenu extends Component {
                             />
                         </Link>
 
-                        <Link to="/createbusiness">
+                        <Link to="/business/create">
                             <Menu.Item as='div'
                                 name='createBusiness'
                                 active={activeItem === 'createBusiness'}
