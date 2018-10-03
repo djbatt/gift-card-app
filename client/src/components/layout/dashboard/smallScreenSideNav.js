@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Icon, Menu, Segment, Sidebar, Responsive } from 'semantic-ui-react'
+import { Icon, Menu, Header, Sidebar, Responsive, Divider } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import SmallScreenNav from "./smallScreenTopNav"
 
@@ -16,10 +16,10 @@ export default class SmallScreenMenu extends Component {
     return (
       <Responsive maxWidth={1200}>
 
-        <Sidebar.Pushable as={Segment} color='teal'>
+        <Sidebar.Pushable as={Header} block>
           <Sidebar
             as={Menu}
-            animation='overlay'
+            animation='slide along'
             icon='labeled'
             inverted
             onHide={this.handleSidebarHide}
@@ -28,44 +28,47 @@ export default class SmallScreenMenu extends Component {
             width='thin'
           >
 
-          <Link to="/business/details">
+          <Link to="/business">
             <Menu.Item>
-              <Icon name='list layout' />
               My Details
             </Menu.Item>
           </Link>
 
+          <Divider/>
+
           <Link to="/business/verify">
             <Menu.Item>
-              <Icon name='barcode' />
               Verify My Gifts
             </Menu.Item>
           </Link>
 
+          <Divider/>
+
           <Link to="/business/gifts">
             <Menu.Item>
-              <Icon name='cogs' />
               Create/Modify My Page
             </Menu.Item>
           </Link>
+          
+          <Divider/>
 
           <Link to="/business/support">
             <Menu.Item>
-              <Icon name='compose' />
               Support
             </Menu.Item>
           </Link>
+          
+          <Divider/>
 
           <Link to="/business/faq">
             <Menu.Item>
-              <Icon name='tasks' />
               FAQ
             </Menu.Item>
           </Link>
 
           </Sidebar>
 
-          <Sidebar.Pusher>
+          <Sidebar.Pusher dimmed={visible}>
               <SmallScreenNav businessName={this.props.businessName} Click={this.handleButtonClick}/>
               {this.props.children}
           </Sidebar.Pusher>

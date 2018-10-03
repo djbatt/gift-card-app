@@ -34,10 +34,10 @@ export default class TotalContainer extends Component {
       <Router>
         <Security issuer={config.issuer} client_id={config.client_id} redirect_uri={config.redirect_uri} onAuthRequired={AuthHandler}>
           <div>
-            <Container>
             <NavBar/>
+            <Container>
               <Route path="/" exact={true} component={Home} />
-              <SecureRoute path="/business" exact={true} component={businessDashboard}/>
+              <SecureRoute path="/business" exact={false} component={businessDashboard}/>
               <SecureRoute path="/createbusiness" exact={true} component={createBusiness} />
             </Container>
           </div>

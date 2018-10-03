@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Grid, Responsive, Segment, Form, Header, Button, Checkbox } from 'semantic-ui-react';
+import { Grid, Responsive, Segment, Form, Header, Button, Checkbox, Breadcrumb } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import addBusiness from '../util/logic/addBusiness';    
 import States from '../util/JSON/stateList';
 import Months from '../util/JSON/months';
@@ -18,12 +19,11 @@ export default class createBusiness extends Component {
     }
 
     componentDidMount() {
-        const path = this.props.history.location.pathname;
-        const regexPath = path.match("[^/]+(?=$|$)");
-        const uId = regexPath[0];
+        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
+        // Selects everything at the end of a url -- const regexPath = path.match("[^/]+(?=$|$)");
 
         this.setState({
-            user: uId
+            user: Token.userId
         }, () => {
             console.log(this.state);
         })
@@ -41,7 +41,7 @@ export default class createBusiness extends Component {
         this.setState({
             [name]: value
         }, () => {
-            console.log(this.state)
+            //console.log(this.state)
         })
     }
 
@@ -71,9 +71,20 @@ export default class createBusiness extends Component {
         
         return (
             <Grid>
+                <Breadcrumb size='big'>
+                <Link to='/'>
+                    <Breadcrumb.Section>Home</Breadcrumb.Section>
+                </Link>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Link to='/business'>
+                    <Breadcrumb.Section>My Business</Breadcrumb.Section>
+                </Link>
+                <Breadcrumb.Divider icon='right chevron' />
+                <Breadcrumb.Section active>Create Business</Breadcrumb.Section>
+                </Breadcrumb>
                 <Grid.Row>
                     <Grid.Column as={Responsive}>
-                        <Segment color='green'>
+                        <Segment className='shadow'>
                             <Form>
                                 <Form.Group>
                                     <Form.Input

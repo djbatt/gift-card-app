@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Responsive, Segment, Header, Loader, Button } from 'semantic-ui-react';
+import { Responsive, Segment, Header, Loader, Button, Breadcrumb } from 'semantic-ui-react';
 import { grabMany } from '../../../util/logic';
 
-export default class Select extends Component {
+export default class Delete extends Component {
     
     state = {
         businessArray: [],
@@ -31,22 +31,9 @@ export default class Select extends Component {
         }
     }
 
-    addCurrentBusiness = (businessID) => {
-        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
-
-        const parsed = Token;
-    
-        parsed["currentBusiness"] = businessID;
-    
-        localStorage.setItem('okta-token-storage', JSON.stringify(parsed));
+    deleteCurrentBusiness = (businessID) => {
         
-        
-        console.log("Token with businessID")
-        console.log(Token);
-        console.log("=============================================")
-
-        
-        this.props.history.push("/business")
+        this.props.history.push("/business/select")
     }
     
 
@@ -57,7 +44,7 @@ export default class Select extends Component {
                 <Header>
                     {business.businessName}
                 </Header>
-                <Button positive floated='right' type='submit' onClick={() => {this.addCurrentBusiness(business._id)}}>Select Business</Button>
+                <Button negative floated='right' type='submit'>Delete Business</Button>
                 <span>Street Address: {business.streetAddress}</span>
                 <br></br>
                 <span>Email: {business.eMail}</span>
