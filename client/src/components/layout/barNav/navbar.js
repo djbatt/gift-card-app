@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Menu, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
+import { updateDB } from '../../util/logic';
 
 export default withAuth(class NavBar extends Component {
     constructor(props) {
@@ -11,12 +12,24 @@ export default withAuth(class NavBar extends Component {
             activeItem: null
         };
     }
-    
+
+    checkUser = async () => {
+        try {
+            await updateDB()
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
 
     checkAuthentication = async () => {
         const authenticated = await this.props.auth.isAuthenticated();
         if (authenticated !== this.state.authenticated) {
-            this.setState({ authenticated });
+            this.setState({ authenticated }, () => {
+                if (this.state.authenticated) {
+                    this.checkUser()
+                }
+            });
         }
     }
 
@@ -29,14 +42,20 @@ export default withAuth(class NavBar extends Component {
     }
 
     login = async () => {
-        this.props.auth.login('/');
+        this.props.auth.login('/business');
     }
 
     logout = async () => {
-        this.props.auth.logout('/');
+        this.props.auth.logout('/login');
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name }, () => {
+        if (this.state.authenticated === true && name === "auth") {
+            this.logout();
+        } else if (this.state.authenticated === false && name === "auth") {
+            this.login();
+        }
+    });
 
     render() {
         const { activeItem } = this.state
@@ -44,13 +63,13 @@ export default withAuth(class NavBar extends Component {
         if (this.state.authenticated === null) return null;
 
         const ifAuth = this.state.authenticated ? (
-            <Link to="/">
+            <Link to="/business">
                 <Menu.Item as='div'
                     position='right'
                     name='auth'
                     active={activeItem === 'auth'}
                     content='Logout'
-                    onClick={this.logout}
+                    onClick={this.handleItemClick}
                 />
             </Link>
 
@@ -61,18 +80,12 @@ export default withAuth(class NavBar extends Component {
                         name='auth'
                         active={activeItem === 'auth'}
                         content='Login'
-                        onClick={this.login}
+                        onClick={this.handleItemClick}
                     />
                 </Link>
             )
         return (
-            <Menu stackable pointing secondary>
-
-                <Link to="/">
-                    <Menu.Item as='div'>
-                        <Image className='centered' src="ezGift.png" />
-                    </Menu.Item>
-                </Link>
+            <Menu stackable pointing secondary className='noBar'>
 
                 <Menu.Menu position='right' className='topNavMargin'>
                     <Link to="/">
@@ -80,6 +93,14 @@ export default withAuth(class NavBar extends Component {
                             name='home'
                             active={activeItem === 'home'}
                             content='Home'
+                            onClick={this.handleItemClick}
+                        /></Link>
+
+                    <Link to="/pricing">
+                        <Menu.Item as='div'
+                            name='pricing'
+                            active={activeItem === 'pricing'}
+                            content='Pricing'
                             onClick={this.handleItemClick}
                         /></Link>
 

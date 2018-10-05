@@ -9,7 +9,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  //Find user by id
+  //Find user by ID happens 
   findUser: function (req, res) {
     db.User
       .find({_id: req.params.id})

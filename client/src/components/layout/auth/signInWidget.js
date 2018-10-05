@@ -11,7 +11,7 @@ export default class SignInWidget extends Component {
       baseUrl: this.props.baseUrl,
       features: {
         registration: true,
-        smsRecovery: true,
+        //smsRecovery: true,
         header: false
       }
     });

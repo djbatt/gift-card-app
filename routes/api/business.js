@@ -3,9 +3,14 @@ const businessController = require("../../controllers/businessController");
 
 // Matches with "/api/business"
 router.route("/")
-  .post(businessController.create)
+  .post(businessController.create) //Create a new business
+
+router.route("/many/:id")
+  .get(businessController.getMany); //Get all business(s) from userID
 
 router.route("/:id")
-  .get(businessController.getBusiness);
+  .get(businessController.getBusiness) //Get business details from ID
+  .delete(businessController.deleteBusiness) //Delete a business from ID
+  //.put(businessController.update)
 
 module.exports = router;

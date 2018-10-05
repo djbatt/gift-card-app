@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react';
 
 export default class WideScreenMenu extends Component {
     state = {}
@@ -8,16 +8,20 @@ export default class WideScreenMenu extends Component {
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
-        const createRedirect = "/createbusiness/" + this.props.uid
+
+        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
+        
+        const userEmail = Token.idToken.claims.email;
+
         const { activeItem } = this.state || {}
 
         return (
-            <Menu vertical>
+            <Menu vertical className='shadow'>
                 <Menu.Item as='div'>
-                    <Menu.Header>{this.props.businessName}</Menu.Header>
+                    <Menu.Header>{userEmail}</Menu.Header>
 
                     <Menu.Menu>
-                        <Link to="/business/details">
+                        <Link to="/business">
                             <Menu.Item as='div'
                                 name='details'
                                 active={activeItem === 'details'}
@@ -72,30 +76,31 @@ export default class WideScreenMenu extends Component {
                 <Menu.Item as='div'>
                     <Menu.Header>Settings</Menu.Header>
                     <Menu.Menu>
+
+                        <Link to="/business/edit">
+                            <Menu.Item as='div'
+                                name='editBusiness'
+                                active={activeItem === 'editBusiness'}
+                                onClick={this.handleItemClick}
+                                content='Edit Selected Business'
+                            />
+                        </Link>
+
                         <Link to="/business/select">
                             <Menu.Item as='div'
                                 name='selectBusiness'
                                 active={activeItem === 'selectBusiness'}
                                 onClick={this.handleItemClick}
-                                content='Change Current Business'
+                                content='Change Selected Business'
                             />
                         </Link>
 
-                        <Link to={createRedirect}>
+                        <Link to="/business/create">
                             <Menu.Item as='div'
                                 name='createBusiness'
                                 active={activeItem === 'createBusiness'}
                                 onClick={this.handleItemClick}
                                 content='Create New Business'
-                            />
-                        </Link>
-
-                        <Link to="/business/modify">
-                            <Menu.Item as='div'
-                                name='editBusiness'
-                                active={activeItem === 'editBusiness'}
-                                onClick={this.handleItemClick}
-                                content='Edit A Business'
                             />
                         </Link>
 
