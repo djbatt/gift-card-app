@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
-import SmallScreenMenu from '../dashboardMenus/smallScreenMenu';
 //import { chosenBusiness } from '../../../../util/logic';
-import { Link } from 'react-router-dom';
-import { Grid, Responsive, Segment, Loader, Breadcrumb, Button, Divider } from 'semantic-ui-react';
+import BreadCrumb from '../breadCrumb/breadcrumb';
+import { Segment } from 'semantic-ui-react';
 
 export default class Details extends Component {
 
   state = {
     business: {}
   }
+
+  componentDidMount() {
+    console.log(`Props:`, this.props.handleClick);
+  }
+  
 
   // async componentDidMount() {
 
@@ -70,18 +74,9 @@ export default class Details extends Component {
   render() {
     return (
       <Segment.Group className='shadow'>
-        <Segment tertiary>
-          <Button circular icon='content' color='blue' className='menuButton'/>
-          <Breadcrumb size='big'>
-            <Link to='/'>
-              <Breadcrumb.Section>Home</Breadcrumb.Section>
-            </Link>
-            <Breadcrumb.Divider icon='right chevron' />
-            <Breadcrumb.Section active>My Business</Breadcrumb.Section>
-          </Breadcrumb>
-        </Segment>
+        <BreadCrumb pathName={this.props.match.path} clickHandler={this.props.handleClick}/>
         <Segment>
-          {this.state.business.businessName}
+          <span>Put business info here!</span>
         </Segment>
       </Segment.Group>
     )

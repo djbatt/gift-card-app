@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { Responsive, Segment, Header, Loader, Button, Breadcrumb } from 'semantic-ui-react';
+import BreadCrumb from '../breadCrumb/breadcrumb';
+import { Responsive, Segment, Header, Loader, Button } from 'semantic-ui-react';
 import { getAllBusiness, DeleteBusiness } from '../../../../util/logic';
 
 export default class Delete extends Component {
@@ -11,6 +11,7 @@ export default class Delete extends Component {
     }
 
     async componentDidMount() {
+        console.log(this.props)
         console.log("did mount")
         const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
 
@@ -68,19 +69,7 @@ export default class Delete extends Component {
         ) : (
                 <Responsive>
                     <Segment.Group className='shadow'>
-                        <Segment tertiary>
-                            <Breadcrumb size='big'>
-                                <Link to='/'>
-                                    <Breadcrumb.Section>Home</Breadcrumb.Section>
-                                </Link>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Link to='/business'>
-                                    <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                                </Link>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Breadcrumb.Section active>Delete A Business</Breadcrumb.Section>
-                            </Breadcrumb>
-                        </Segment>
+                        <BreadCrumb pathName={this.props.match.path} />
                         {businessList}
                     </Segment.Group>
                 </Responsive>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Grid, Responsive, Segment, Form, Header, Button, Checkbox, Breadcrumb, Divider } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import BreadCrumb from '../breadCrumb/breadcrumb';
+import { Segment, Form, Header, Button, Checkbox } from 'semantic-ui-react';
 import { addBusiness } from '../../../../util/logic'
 import States from '../../../../util/JSON/stateList';
 import Months from '../../../../util/JSON/months';
@@ -71,19 +71,7 @@ export default class createBusiness extends Component {
 
         return (
             <Segment.Group className='shadow'>
-                <Segment tertiary>
-                            <Breadcrumb size='big'>
-                        <Link to='/'>
-                            <Breadcrumb.Section>Home</Breadcrumb.Section>
-                        </Link>
-                        <Breadcrumb.Divider icon='right chevron' />
-                        <Link to='/business'>
-                            <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                        </Link>
-                        <Breadcrumb.Divider icon='right chevron' />
-                        <Breadcrumb.Section active>Create Business</Breadcrumb.Section>
-                    </Breadcrumb>
-                </Segment>
+                <BreadCrumb pathName={this.props.match.path} clickHandler={this.props.handleClick} />
                 <Segment>
                     <Form>
                         <Form.Group>

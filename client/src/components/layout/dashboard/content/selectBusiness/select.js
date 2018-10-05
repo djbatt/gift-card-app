@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
-import { Responsive, Segment, Header, Loader, Button, Breadcrumb } from 'semantic-ui-react';
+import { Responsive, Segment, Header, Loader, Button } from 'semantic-ui-react';
+import BreadCrumb from '../breadCrumb/breadcrumb';
 import { getAllBusiness } from '../../../../util/logic';
 
 export default class Select extends Component {
-    
+
     state = {
         businessArray: [],
         loading: true
     }
 
     async componentDidMount() {
+        //console.log(this.props.match.path)
         console.log("did mount")
         const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
 
@@ -36,20 +37,20 @@ export default class Select extends Component {
         const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
 
         const parsed = Token;
-    
+
         parsed["currentBusiness"] = businessID;
-    
+
         localStorage.setItem('okta-token-storage', JSON.stringify(parsed));
-        
-        
+
+
         console.log("Token with businessID")
         console.log(Token);
         console.log("=============================================")
 
-        
+
         this.props.history.push("/business")
     }
-    
+
 
     render() {
 
@@ -58,7 +59,7 @@ export default class Select extends Component {
                 <Header>
                     {business.businessName}
                 </Header>
-                <Button positive floated='right' type='submit' onClick={() => {this.addCurrentBusiness(business._id)}}>Select Business</Button>
+                <Button positive floated='right' type='submit' onClick={() => { this.addCurrentBusiness(business._id) }}>Select Business</Button>
                 <span>Street Address: {business.streetAddress}</span>
                 <br></br>
                 <span>Email: {business.eMail}</span>
@@ -75,19 +76,7 @@ export default class Select extends Component {
         ) : (
                 <Responsive>
                     <Segment.Group className='shadow'>
-                        <Segment tertiary>
-                            <Breadcrumb size='big'>
-                                <Link to='/'>
-                                    <Breadcrumb.Section>Home</Breadcrumb.Section>
-                                </Link>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Link to='/business'>
-                                    <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                                </Link>
-                                <Breadcrumb.Divider icon='right chevron' />
-                                <Breadcrumb.Section active>Select A Business</Breadcrumb.Section>
-                            </Breadcrumb>
-                        </Segment>
+                        <BreadCrumb pathName={this.props.match.path} clickHandler={this.props.handleClick} />
                         {businessList}
                     </Segment.Group>
                 </Responsive>
