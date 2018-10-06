@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import BreadCrumb from '../breadCrumb/breadcrumb';
-import { Segment, Form, Header, Button, Checkbox } from 'semantic-ui-react';
+import { Segment, Form, Header, Button, Checkbox, Divider, Icon } from 'semantic-ui-react';
 import { addBusiness } from '../../../../util/logic'
 import States from '../../../../util/JSON/stateList';
 import Months from '../../../../util/JSON/months';
@@ -74,6 +74,10 @@ export default class createBusiness extends Component {
                 <BreadCrumb pathName={this.props.match.path} clickHandler={this.props.handleClick} />
                 <Segment>
                     <Form>
+                        <Header
+                            icon='info circle'
+                            content='Business Information' />
+                        <Divider />
                         <Form.Group>
                             <Form.Input
                                 name='businessName'
@@ -133,6 +137,7 @@ export default class createBusiness extends Component {
                         <Header
                             icon='credit card'
                             content='Billing Information' />
+                        <Divider />
                         <Form.Group>
                             <Form.Input
                                 width={10}
@@ -180,7 +185,9 @@ export default class createBusiness extends Component {
                                 className='createBusinessCheck'
                                 label='I agree to the Terms and Conditions' />
                         </Form.Group>
-                        <Button positive onClick={this.handleFormSubmit} type='submit'>Submit</Button>
+                        <Button positive onClick={this.handleFormSubmit} type='submit'>
+                        <Icon name='cloud'/>
+                        Submit</Button>
                     </Form>
                 </Segment>
             </Segment.Group>

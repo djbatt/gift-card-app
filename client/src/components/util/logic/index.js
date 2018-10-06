@@ -1,6 +1,6 @@
 export * from './checkBusiness'
 export * from './updateUser'
 export * from './addBusiness'
-export * from './chosenBusiness'
+export * from './findBusiness'
 export * from './getAllBusiness'
 export * from './deleteBusiness'

@@ -5,7 +5,7 @@ import { Link, Route } from 'react-router-dom';
 //Dashboard Content
 import Details from '../businessDetails/details';
 import Verify from '../verifyGift/verify';
-import CreateGift from '../createGiftPage/create';
+import EditGift from '../editGiftPage/edit';
 import Support from '../support/support';
 import FAQ from '../faq/faq';
 import Select from '../selectBusiness/select';
@@ -22,16 +22,10 @@ export default class SmallScreenMenu extends Component {
 
   render() {
 
-    // const children = React.Children.map(this.props.children, (child) => {
-    //   return React.cloneElement(child, {
-    //     handleClick: this.handleButtonClick
-    //   })
-    // }) // This allows you to pass props to a parents children, through this.props.children
-
     const { visible } = this.state
 
     return (
-      <Sidebar.Pushable>
+      <Sidebar.Pushable className='shadow'>
         <Sidebar
           as={Menu}
           animation='overlay'
@@ -61,7 +55,7 @@ export default class SmallScreenMenu extends Component {
 
           <Link to="/business/gifts">
             <Menu.Item>
-              Create/Modify My Page
+              Edit My Page
             </Menu.Item>
           </Link>
 
@@ -118,7 +112,7 @@ export default class SmallScreenMenu extends Component {
         <Sidebar.Pusher dimmed={visible}>
             <Route path="/business" exact={true} render={(props) => <Details {...props} handleClick={this.handleButtonClick}/>}/>
             <Route path="/business/verify" exact={true} render={(props) => <Verify {...props} handleClick={this.handleButtonClick}/>}/>
-            <Route path="/business/gifts" exact={true} render={(props) => <CreateGift {...props} handleClick={this.handleButtonClick}/>}/>
+            <Route path="/business/gifts" exact={true} render={(props) => <EditGift {...props} handleClick={this.handleButtonClick}/>}/>
             <Route path="/business/support" exact={true} render={(props) => <Support {...props} handleClick={this.handleButtonClick}/>}/>
             <Route path="/business/faq" exact={true} render={(props) => <FAQ {...props} handleClick={this.handleButtonClick}/>}/>
             <Route path="/business/edit" exact={true} render={(props) => <EditBusiness {...props} handleClick={this.handleButtonClick}/>}/>
