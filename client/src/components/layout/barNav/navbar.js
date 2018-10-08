@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Image } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
 import { updateDB } from '../../util/logic';

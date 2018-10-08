@@ -9,9 +9,9 @@ export default class BreadCrumb extends Component {
 
         console.log("breadcrumb props: ", this.props)
         const pathname = this.props.pathName;
+        const lastWord = pathname.match("[^/]+(?=$|$)");
         // const slashCountRegex = /\//g;
         // const slashCount = pathname.match(slashCountRegex).length;
-        const lastWord = pathname.match("[^/]+(?=$|$)");
 
         switch (lastWord[0]) {
             case "business":
@@ -63,7 +63,7 @@ export default class BreadCrumb extends Component {
                                 <Breadcrumb.Section>My Business</Breadcrumb.Section>
                             </Link>
                             <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>Create/Modify Your Gifts</Breadcrumb.Section>
+                            <Breadcrumb.Section active>Edit My Page</Breadcrumb.Section>
                         </Breadcrumb>
                     </Segment>
                 )

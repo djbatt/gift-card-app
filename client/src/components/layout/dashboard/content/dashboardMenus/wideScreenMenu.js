@@ -44,7 +44,7 @@ export default class WideScreenMenu extends Component {
                                 name='page'
                                 active={activeItem === 'page'}
                                 onClick={this.handleItemClick}
-                                content='Create/Modify My Page'
+                                content='Edit My Page'
                             />
                         </Link>
                     </Menu.Menu>

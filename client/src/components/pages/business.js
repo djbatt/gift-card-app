@@ -10,7 +10,7 @@ import SmallScreenMenu from '../layout/dashboard/content/dashboardMenus/smallScr
 //Dashboard Content
 import Details from '../layout/dashboard/content/businessDetails/details';
 import Verify from '../layout/dashboard/content/verifyGift/verify';
-import createGift from '../layout/dashboard/content/createGiftPage/create';
+import EditGift from '../layout/dashboard/content/editGiftPage/edit';
 import Support from '../layout/dashboard/content/support/support';
 import FAQ from '../layout/dashboard/content/faq/faq';
 import Select from '../layout/dashboard/content/selectBusiness/select';
@@ -32,7 +32,7 @@ const Dashboard = () => {
           <Responsive minWidth={1200}>
             <Route path="/business" exact={true} component={Details} />
             <Route path="/business/verify" exact={true} component={Verify} />
-            <Route path="/business/gifts" exact={true} component={createGift} />
+            <Route path="/business/gifts" exact={true} component={EditGift} />
             <Route path="/business/support" exact={true} component={Support} />
             <Route path="/business/faq" exact={true} component={FAQ} />
             <Route path="/business/edit" exact={true} component={EditBusiness} />

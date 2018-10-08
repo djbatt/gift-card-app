@@ -10,7 +10,8 @@ const businessSchema = new Schema({
     businessPhone: {type: Number, required: true},
     cellPhone: {type: Number, required: true},
     dateCreated: {type: Date, default: Date.now, required: true},
-    user: {type: Schema.Types.ObjectId, ref: 'User'}
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
+    category: [{type: Schema.Types.ObjectId, ref: 'Category'}]
 });
 
 const Business = mongoose.model("Business", businessSchema);

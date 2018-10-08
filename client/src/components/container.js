@@ -7,6 +7,9 @@ import NavBar from './layout/barNav/navbar';
 
 //Page Imports
 import Home from './pages/home';
+import Pricing from './pages/pricing';
+import Contact from './pages/contact';
+import Gift from './pages/gift';
 import Dashboard from './pages/business';
 
 //Semantic Imports
@@ -29,13 +32,28 @@ const config = {
 export default class TotalContainer extends Component {
 
   render() {
+  
+    const pathname = window.location.pathname;
+    const firstWord = pathname.replace(/^\/([^\/]*).*$/, '$1');
+
+    // If gift checks if the first word is gift, so we don't display navbar for paying customers
+
+    const ifGift = firstWord === "gift" ? (
+      <div/>
+    ) : (
+      <NavBar/>
+    )
+
     return (
       <Router>
         <Security issuer={config.issuer} client_id={config.client_id} redirect_uri={config.redirect_uri} onAuthRequired={AuthHandler}>
           <div>
-            <NavBar/>
+            {ifGift}
             <Container>
               <Route path="/" exact={true} component={Home} />
+              <Route path="/pricing" exact={true} component={Pricing} />
+              <Route path="/contact" exact={true} component={Contact} />
+              <Route path="/gift/:id" exact={true} component={Gift} />
               <SecureRoute path="/business" exact={false} component={Dashboard}/>
             </Container>
           </div>
