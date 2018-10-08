@@ -43,7 +43,11 @@
 }
 
 .imageColumn {
-    padding: 14px 14px 14px 14px;
+    padding: 14px 7px 14px 7px !important;
+}
+
+.filler {
+    height: calc(100vh - 100px);
 }
 
 .shadow {

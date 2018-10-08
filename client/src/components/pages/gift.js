@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PickDesign from '../layout/gift/pickDesign';
-import { Segment, Form, Header, Button, Checkbox, Divider, TextArea, Radio, Icon, Container } from 'semantic-ui-react';
+import { Segment, Form, Header, Button, Checkbox, Divider, TextArea, Radio, Icon, Container, Grid } from 'semantic-ui-react';
 
 export default class Gift extends Component {
 
@@ -18,6 +18,7 @@ export default class Gift extends Component {
         sourcePhone: '',
         sourceFirst: '',
         sourceLast: '',
+        dollarAmount: '',
     }
 
     componentDidMount = () => {
@@ -25,7 +26,7 @@ export default class Gift extends Component {
         const lastWord = pathname.match("[^/]+(?=$|$)");
         console.log(lastWord)
     }
-    
+
 
     handleCheckBox = e => {
         console.log("handle")
@@ -69,6 +70,27 @@ export default class Gift extends Component {
     }
 
     render() {
+
+        const dollarType = this.state.giftType === 'dollar' ? (
+            <Form.Input
+                name='dollarAmount'
+                value={this.state.dollarAmount}
+                onChange={this.handleFormChange}
+                width={2}
+                label='Amount in $'
+                placeholder='20'
+            />
+        ) : (
+                <div></div>
+            )
+
+        const serviceType = this.state.giftType === 'service' ? (
+            <Form.Field width={12}>
+            </Form.Field>
+        ) : (
+                <div></div>
+            )
+
         return (
             <Container className='giftContainer'>
                 <Segment.Group className='shadow'>
@@ -91,6 +113,7 @@ export default class Gift extends Component {
                                         checked={this.state.giftType === 'dollar'}
                                         onClick={this.handleGiftTypeChange} />
                                 </Form.Field>
+                                {dollarType}
                                 <Form.Field>
                                     <Radio
                                         toggle
@@ -100,6 +123,7 @@ export default class Gift extends Component {
                                         checked={this.state.giftType === 'service'}
                                         onClick={this.handleGiftTypeChange} />
                                 </Form.Field>
+                                {serviceType}
                             </Form.Group>
                             <Header
                                 icon='eye'
@@ -107,7 +131,7 @@ export default class Gift extends Component {
                             <Divider />
                             <Form.Group>
                                 <Form.Field>
-                                    <PickDesign choice={this.handleDesignChoice}/>
+                                    <PickDesign choice={this.handleDesignChoice} />
                                 </Form.Field>
                             </Form.Group>
                             <Header
@@ -153,7 +177,7 @@ export default class Gift extends Component {
                                     value={this.state.recipientEmail}
                                     onChange={this.handleFormChange}
                                     width={8}
-                                    label='Email'
+                                    label='Recipient Email'
                                     placeholder='theiremail@examplemail.com' />
 
                                 <Form.Input
@@ -161,7 +185,7 @@ export default class Gift extends Component {
                                     value={this.state.recipientName}
                                     onChange={this.handleFormChange}
                                     width={8}
-                                    label='Name'
+                                    label='Recipient Name'
                                     placeholder='Jane Doe' />
                             </Form.Group>
                             <Form.Group>
