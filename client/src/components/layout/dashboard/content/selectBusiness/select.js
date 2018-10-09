@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Responsive, Segment, Header, Loader, Button } from 'semantic-ui-react';
+import { Responsive, Segment, Header, Loader, Button, Divider } from 'semantic-ui-react';
 import BreadCrumb from '../breadCrumb/breadcrumb';
 import { getAllBusiness } from '../../../../util/logic';
 
@@ -75,8 +75,10 @@ export default class Select extends Component {
             </Responsive>
         ) : (
                 <Responsive>
-                    <Segment.Group className='shadow'>
-                        <BreadCrumb pathName={this.props.match.path} clickHandler={this.props.handleClick} />
+
+                <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout}/>
+                    <Divider />
+                    <Segment.Group raised>
                         {businessList}
                     </Segment.Group>
                 </Responsive>
