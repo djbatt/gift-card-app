@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import BreadCrumb from '../breadCrumb/breadcrumb';
-import { Segment, Form, Header, Button, Checkbox, Divider, Icon, Responsive } from 'semantic-ui-react';
+import { Form, Header, Button, Checkbox, Divider, Icon, Responsive } from 'semantic-ui-react';
 import { addBusiness } from '../../../../util/logic'
 import States from '../../../../util/JSON/stateList';
 import Months from '../../../../util/JSON/months';
@@ -59,7 +59,7 @@ export default class createBusiness extends Component {
                 try {
                     const data = await addBusiness(this.state);
                     console.log("success", data);
-                    this.props.history.push("/business");
+                    this.props.history.push("/dashboard");
                 } catch (e) {
                     console.log(e);
                 }

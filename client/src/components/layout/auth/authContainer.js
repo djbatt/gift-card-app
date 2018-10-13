@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { Responsive } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
 import { updateDB } from '../../util/logic';
 
 import { SecureRoute } from '@okta/okta-react';
-import { Route } from 'react-router-dom';
 
 //Page Imports
 import Dashboard from '../../pages/business';

@@ -7,14 +7,12 @@ import Home from './pages/home';
 import Pricing from './pages/pricing';
 import Contact from './pages/contact';
 import Gift from './pages/gift';
-import Dashboard from './pages/business';
 
 import AuthContainer from './layout/auth/authContainer'
 
 //Okta
-import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
+import { Security, ImplicitCallback } from '@okta/okta-react';
 import Login from './layout/auth/login';
-import NewNav from './layout/barNav/newNav';
 
 function AuthHandler({ history }) {
   history.push('/login');

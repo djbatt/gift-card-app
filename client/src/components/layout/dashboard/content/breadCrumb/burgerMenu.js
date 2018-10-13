@@ -4,7 +4,7 @@ import React from 'react'
 
 export default (props) => {
     return (
-        <Responsive maxWidth={1200}>
+        <Responsive maxWidth={768}>
             <Button circular icon='content' color='blue' className='menuButton' onClick={props.handler} />
         </Responsive>
     )

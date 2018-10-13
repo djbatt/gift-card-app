@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import BreadCrumb from '../breadCrumb/breadcrumb';
-import { Responsive, Segment, Header, Loader, Button, Divider } from 'semantic-ui-react';
+import { Responsive, Segment, Header, Loader, Button, Divider, Item } from 'semantic-ui-react';
 import { getAllBusiness, DeleteBusiness } from '../../../../util/logic';
 
 export default class Edit extends Component {
@@ -38,7 +38,7 @@ export default class Edit extends Component {
             console.log(businessID);
             const data = await DeleteBusiness(businessID)
             console.log("Delete business returned:", data);
-            this.props.history.push("/business/select")
+            this.props.history.push("/dashboard/select")
         } catch (e) {
             console.log(e);
         }
@@ -48,19 +48,30 @@ export default class Edit extends Component {
     render() {
 
         const businessList = this.state.businessArray.map((business) =>
-            <Segment key={business._id}>
-                <Header>
+            <Item key={business._id}>
+            <Item.Content>
+                <Item.Header as={Header}>
                     {business.businessName}
-                </Header>
-                <Button negative onClick={() => { this.deleteCurrentBusiness(business._id) }} floated='right' type='submit'>Delete Business</Button>
+                </Item.Header>
+                <Item.Meta>
+                <br></br>
                 <span>Street Address: {business.streetAddress}</span>
+                <br></br>
                 <br></br>
                 <span>Email: {business.eMail}</span>
                 <br></br>
+                <br></br>
                 <span>Business Phone: {business.businessPhone}</span>
                 <br></br>
+                <br></br>
                 <span>Cell Phone: {business.cellPhone}</span>
-            </Segment>);
+                </Item.Meta>
+                <Item.Extra>
+                    
+                <Button negative onClick={() => { this.deleteCurrentBusiness(business._id) }} floated='right' type='submit'>Delete Business</Button>
+                </Item.Extra>
+            </Item.Content>
+            </Item>);
 
         const ifLoading = this.state.loading ? (
             <Responsive>
@@ -71,9 +82,11 @@ export default class Edit extends Component {
 
                 <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout}/>
                     <Divider/>
-                    <Segment.Group raised>
+                    <Segment>
+                        <Item.Group divided relaxed>
                         {businessList}
-                    </Segment.Group>
+                        </Item.Group>
+                    </Segment>
                 </Responsive>
             );
 

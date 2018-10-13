@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { findBusiness } from '../../../../util/logic';
+import { Link } from 'react-router-dom';
 import BreadCrumb from '../breadCrumb/breadcrumb';
-import { Divider, Responsive, Loader } from 'semantic-ui-react';
+import { Divider, Responsive, Loader, Header, Icon, Grid } from 'semantic-ui-react';
 
 export default class MyBusiness extends Component {
 
@@ -75,7 +76,7 @@ export default class MyBusiness extends Component {
 
   render() {
 
-    const yourURl = `Your url is ${window.location.hostname}:3000/gift/${this.state.business._id}`
+    const yourURl = `/gift/${this.state.business._id}`
 
     const ifLoading = this.state.loading ? (
       <Responsive>
@@ -86,7 +87,16 @@ export default class MyBusiness extends Component {
 
           <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout}/>
           <Divider />
-          <span>{yourURl}</span>
+          <Header block>
+            <Icon name='linkify'/>
+            <Header.Content><Link to={yourURl} target="_blank">Your Gift Page</Link></Header.Content>
+          </Header>
+          <Grid celled='internally'>
+              <Grid.Column widescreen={8} largeScreen={8} computer={8} tablet={8} mobile={16} color='blue'>
+              </Grid.Column>
+              <Grid.Column widescreen={8} largeScreen={8} computer={8} tablet={8} mobile={16} color='red'>
+              </Grid.Column>
+          </Grid>
         </Responsive>
       )
 
