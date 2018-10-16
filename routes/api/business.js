@@ -11,6 +11,6 @@ router.route("/many/:id")
 router.route("/:id")
   .get(businessController.getBusiness) //Get business details from ID
   .delete(businessController.deleteBusiness) //Delete a business from ID
-  //.put(businessController.update)
+  .post(businessController.updateBusiness)
 
 module.exports = router;

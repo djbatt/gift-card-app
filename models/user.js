@@ -5,8 +5,9 @@ const userSchema = new Schema({
     name: {type: String, required: true},
     email: {type: String, required: true, index: { unique: true }},
     oktaUnique: {type: String, required: true, index: { unique: true }},
-    dateCreated: {type: Date, default: Date.now, required: true},
     business: [{type: Schema.Types.ObjectId, ref: 'Business'}]
+}, {
+    timestamps: true
 });
 
 const User = mongoose.model("User", userSchema);

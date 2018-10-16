@@ -1,201 +1,220 @@
 import React, { Component } from 'react';
-import BurgerMenu from './burgerMenu';
 import { Link } from 'react-router-dom';
-import { Segment, Breadcrumb } from 'semantic-ui-react';
+import { Breadcrumb, Menu, Responsive } from 'semantic-ui-react';
 
 export default class BreadCrumb extends Component {
 
     render() {
 
-        console.log("breadcrumb props: ", this.props)
+        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
+
+        const userEmail = Token.idToken.claims.email;
+
+        //console.log("breadcrumb props: ", this.props)
         const pathname = this.props.pathName;
         const lastWord = pathname.match("[^/]+(?=$|$)");
         // const slashCountRegex = /\//g;
         // const slashCount = pathname.match(slashCountRegex).length;
 
         switch (lastWord[0]) {
-            case "business":
+            case "dashboard":
                 return (
-                    <Segment tertiary>
-                        <Breadcrumb size='big'>
-                            <Breadcrumb.Section>
-                                <BurgerMenu handler={this.props.clickHandler} />
-                            </Breadcrumb.Section>
-                            <Link to='/'>
-                                <Breadcrumb.Section>Home</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>My Business</Breadcrumb.Section>
-                        </Breadcrumb>
-                    </Segment>
+                    <Menu secondary stackable size='huge'>
+                        <Responsive minWidth={768}>
+                            <Menu.Item>
+                                <Breadcrumb size='big'>
+                                    <Link to='/'>
+                                        <Breadcrumb.Section>Home</Breadcrumb.Section>
+                                    </Link>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section active>Dashboard</Breadcrumb.Section>
+                                </Breadcrumb>
+                            </Menu.Item>
+                        </Responsive>
+                        <Menu.Menu position='right'>
+                            <Menu.Item
+                                content={userEmail} />
+                            <Menu.Item
+                                as={Link} to='/'
+                                content='Logout'
+                                onClick={this.props.logout} />
+                        </Menu.Menu>
+                    </Menu>
                 )
             case "verify":
                 return (
-                    <Segment tertiary>
-                        <Breadcrumb size='big'>
-                            <Breadcrumb.Section>
-                                <BurgerMenu handler={this.props.clickHandler} />
-                            </Breadcrumb.Section>
-                            <Link to='/'>
-                                <Breadcrumb.Section>Home</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Link to='/business'>
-                                <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>Verify A Gift</Breadcrumb.Section>
-                        </Breadcrumb>
-                    </Segment>
-                )
-            case "gifts":
-                return (
-                    <Segment tertiary>
-                        <Breadcrumb size='big'>
-                            <Breadcrumb.Section>
-                                <BurgerMenu handler={this.props.clickHandler} />
-                            </Breadcrumb.Section>
-                            <Link to='/'>
-                                <Breadcrumb.Section>Home</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Link to='/business'>
-                                <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>Edit My Page</Breadcrumb.Section>
-                        </Breadcrumb>
-                    </Segment>
-                )
-            case "support":
-                return (
-                    <Segment tertiary>
-                        <Breadcrumb size='big'>
-                            <Breadcrumb.Section>
-                                <BurgerMenu handler={this.props.clickHandler} />
-                            </Breadcrumb.Section>
-                            <Link to='/'>
-                                <Breadcrumb.Section>Home</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Link to='/business'>
-                                <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>Support</Breadcrumb.Section>
-                        </Breadcrumb>
-                    </Segment>
-                )
-            case "faq":
-                return (
-                    <Segment tertiary>
-                        <Breadcrumb size='big'>
-                            <Breadcrumb.Section>
-                                <BurgerMenu handler={this.props.clickHandler} />
-                            </Breadcrumb.Section>
-                            <Link to='/'>
-                                <Breadcrumb.Section>Home</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Link to='/business'>
-                                <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>FAQ</Breadcrumb.Section>
-                        </Breadcrumb>
-                    </Segment>
+                    <Menu secondary stackable size='huge'>
+                        <Responsive minWidth={768}>
+                            <Menu.Item>
+                                <Breadcrumb size='big'>
+                                    <Link to='/'>
+                                        <Breadcrumb.Section>Home</Breadcrumb.Section>
+                                    </Link>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section active>Verify Gift</Breadcrumb.Section>
+                                </Breadcrumb>
+
+                            </Menu.Item>
+                        </Responsive>
+                        <Menu.Menu position='right'>
+                            <Menu.Item
+                                content={userEmail} />
+                            <Menu.Item
+                                as={Link} to='/'
+                                content='Logout'
+                                onClick={this.props.logout} />
+                        </Menu.Menu>
+                    </Menu>
                 )
             case "edit":
                 return (
-                    <Segment tertiary>
-                        <Breadcrumb size='big'>
-                            <Breadcrumb.Section>
-                                <BurgerMenu handler={this.props.clickHandler} />
-                            </Breadcrumb.Section>
-                            <Link to='/'>
-                                <Breadcrumb.Section>Home</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Link to='/business'>
-                                <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>Edit Selected Business</Breadcrumb.Section>
-                        </Breadcrumb>
-                    </Segment>
+                    <Menu secondary stackable size='huge'>
+                        <Responsive minWidth={768}>
+                            <Menu.Item>
+                                <Breadcrumb size='big'>
+                                    <Link to='/'>
+                                        <Breadcrumb.Section>Home</Breadcrumb.Section>
+                                    </Link>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section active>Edit Business</Breadcrumb.Section>
+                                </Breadcrumb>
+
+                            </Menu.Item>
+                        </Responsive>
+                        <Menu.Menu position='right'>
+                            <Menu.Item
+                                content={userEmail} />
+                            <Menu.Item
+                                as={Link} to='/'
+                                content='Logout'
+                                onClick={this.props.logout} />
+                        </Menu.Menu>
+                    </Menu>
                 )
             case "select":
                 return (
-                    <Segment tertiary>
-                        <Breadcrumb size='big'>
-                            <Breadcrumb.Section>
-                                <BurgerMenu handler={this.props.clickHandler} />
-                            </Breadcrumb.Section>
-                            <Link to='/'>
-                                <Breadcrumb.Section>Home</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Link to='/business'>
-                                <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>Select A Business</Breadcrumb.Section>
-                        </Breadcrumb>
-                    </Segment>
+                    <Menu secondary stackable size='huge'>
+                        <Responsive minWidth={768}>
+                            <Menu.Item>
+                                <Breadcrumb size='big'>
+                                    <Link to='/'>
+                                        <Breadcrumb.Section>Home</Breadcrumb.Section>
+                                    </Link>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section active>Select Business</Breadcrumb.Section>
+                                </Breadcrumb>
+
+                            </Menu.Item>
+                        </Responsive>
+                        <Menu.Menu position='right'>
+                            <Menu.Item
+                                content={userEmail} />
+                            <Menu.Item
+                                as={Link} to='/'
+                                content='Logout'
+                                onClick={this.props.logout} />
+                        </Menu.Menu>
+                    </Menu>
                 )
             case "create":
                 return (
-                    <Segment tertiary>
-                        <Breadcrumb size='big'>
-                            <Breadcrumb.Section>
-                                <BurgerMenu handler={this.props.clickHandler} />
-                            </Breadcrumb.Section>
-                            <Link to='/'>
-                                <Breadcrumb.Section>Home</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Link to='/business'>
-                                <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>Create New Business</Breadcrumb.Section>
-                        </Breadcrumb>
-                    </Segment>
+                    <Menu secondary stackable size='huge'>
+                        <Responsive minWidth={768}>
+                            <Menu.Item>
+                                <Breadcrumb size='big'>
+                                    <Link to='/'>
+                                        <Breadcrumb.Section>Home</Breadcrumb.Section>
+                                    </Link>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section active>Add Business</Breadcrumb.Section>
+                                </Breadcrumb>
+
+                            </Menu.Item>
+                        </Responsive>
+                        <Menu.Menu position='right'>
+                            <Menu.Item
+                                content={userEmail} />
+                            <Menu.Item
+                                as={Link} to='/'
+                                content='Logout'
+                                onClick={this.props.logout} />
+                        </Menu.Menu>
+                    </Menu>
                 )
-            case "delete":
+            case "support":
                 return (
-                    <Segment tertiary>
-                        <Breadcrumb size='big'>
-                            <Breadcrumb.Section>
-                                <BurgerMenu handler={this.props.clickHandler} />
-                            </Breadcrumb.Section>
-                            <Link to='/'>
-                                <Breadcrumb.Section>Home</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Link to='/business'>
-                                <Breadcrumb.Section>My Business</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>Delete A Business</Breadcrumb.Section>
-                        </Breadcrumb>
-                    </Segment>
+                    <Menu secondary stackable size='huge'>
+                        <Responsive minWidth={768}>
+                            <Menu.Item>
+                                <Breadcrumb size='big'>
+                                    <Link to='/'>
+                                        <Breadcrumb.Section>Home</Breadcrumb.Section>
+                                    </Link>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section active>Support</Breadcrumb.Section>
+                                </Breadcrumb>
+
+                            </Menu.Item>
+                        </Responsive>
+                        <Menu.Menu position='right'>
+                            <Menu.Item
+                                content={userEmail} />
+                            <Menu.Item
+                                as={Link} to='/'
+                                content='Logout'
+                                onClick={this.props.logout} />
+                        </Menu.Menu>
+                    </Menu>
                 )
-            default:
+            case "faq":
                 return (
-                    <Segment tertiary>
-                        <Breadcrumb size='big'>
-                            <Breadcrumb.Section>
-                                <BurgerMenu handler={this.props.clickHandler} />
-                            </Breadcrumb.Section>
-                            <Link to='/'>
-                                <Breadcrumb.Section>Home</Breadcrumb.Section>
-                            </Link>
-                            <Breadcrumb.Divider icon='right chevron' />
-                            <Breadcrumb.Section active>My Business</Breadcrumb.Section>
-                        </Breadcrumb>
-                    </Segment>
+                    <Menu secondary stackable size='huge'>
+                        <Responsive minWidth={768}>
+                            <Menu.Item>
+                                <Breadcrumb size='big'>
+                                    <Link to='/'>
+                                        <Breadcrumb.Section>Home</Breadcrumb.Section>
+                                    </Link>
+                                    <Breadcrumb.Divider icon='right chevron' />
+                                    <Breadcrumb.Section active>FAQ</Breadcrumb.Section>
+                                </Breadcrumb>
+
+                            </Menu.Item>
+                        </Responsive>
+                        <Menu.Menu position='right'>
+                            <Menu.Item
+                                content={userEmail} />
+                            <Menu.Item
+                                as={Link} to='/'
+                                content='Logout'
+                                onClick={this.props.logout} />
+                        </Menu.Menu>
+                    </Menu>
                 )
+                default:
+                    return (
+                        <Menu secondary stackable size='huge'>
+                            <Responsive minWidth={768}>
+                                <Menu.Item>
+                                    <Breadcrumb size='big'>
+                                        <Link to='/'>
+                                            <Breadcrumb.Section>Home</Breadcrumb.Section>
+                                        </Link>
+                                        <Breadcrumb.Divider icon='right chevron' />
+                                        <Breadcrumb.Section active>Dashboard</Breadcrumb.Section>
+                                    </Breadcrumb>
+                                </Menu.Item>
+                            </Responsive>
+                            <Menu.Menu position='right'>
+                                <Menu.Item
+                                    content={userEmail} />
+                                <Menu.Item
+                                    as={Link} to='/'
+                                    content='Logout'
+                                    onClick={this.props.logout} />
+                            </Menu.Menu>
+                        </Menu>
+                    )
         }
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Responsive, Segment, Header, Loader, Button } from 'semantic-ui-react';
+import { Responsive, Segment, Header, Loader, Button, Divider, Item } from 'semantic-ui-react';
 import BreadCrumb from '../breadCrumb/breadcrumb';
-import { getAllBusiness } from '../../../../util/logic';
+import API from '../../../../util/API';
 
 export default class Select extends Component {
 
@@ -11,22 +11,25 @@ export default class Select extends Component {
     }
 
     async componentDidMount() {
-        //console.log(this.props.match.path)
-        console.log("did mount")
+        console.log(this.props.location)
         const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
 
         if (!Token.hasOwnProperty("userId")) {
-            console.log("You have no token yet");
+            console.log('no user id')
         } else {
             try {
-                const data = await getAllBusiness(Token.userId)
 
-                console.log("getAllBusiness returned:", data);
+                const res = await API.getAllBusiness(Token.userId)
+
+                console.log(`getAllBusiness Response`);
+                console.log(res.data);
+                console.log("=============================================");
 
                 this.setState({
-                    businessArray: data,
+                    businessArray: res.data,
                     loading: false
                 })
+
             } catch (e) {
                 console.log(e);
             }
@@ -43,31 +46,37 @@ export default class Select extends Component {
         localStorage.setItem('okta-token-storage', JSON.stringify(parsed));
 
 
-        console.log("Token with businessID")
-        console.log(Token);
-        console.log("=============================================")
-
-
-        this.props.history.push("/business")
+        this.props.history.push("/dashboard")
     }
 
 
     render() {
 
         const businessList = this.state.businessArray.map((business) =>
-            <Segment key={business._id}>
-                <Header>
-                    {business.businessName}
-                </Header>
-                <Button positive floated='right' type='submit' onClick={() => { this.addCurrentBusiness(business._id) }}>Select Business</Button>
-                <span>Street Address: {business.streetAddress}</span>
-                <br></br>
-                <span>Email: {business.eMail}</span>
-                <br></br>
-                <span>Business Phone: {business.businessPhone}</span>
-                <br></br>
-                <span>Cell Phone: {business.cellPhone}</span>
-            </Segment>);
+            <Item key={business._id}>
+                <Item.Content>
+                    <Item.Header as={Header}>
+                        {business.businessName}
+                    </Item.Header>
+                    <Item.Meta>
+                        <br></br>
+                        <span>Street Address: {business.streetAddress}</span>
+                        <br></br>
+                        <br></br>
+                        <span>Email: {business.eMail}</span>
+                        <br></br>
+                        <br></br>
+                        <span>Business Phone: {business.businessPhone}</span>
+                        <br></br>
+                        <br></br>
+                        <span>Cell Phone: {business.cellPhone}</span>
+                    </Item.Meta>
+                    <Item.Extra>
+                        <Button positive floated='right' type='submit' onClick={() => { this.addCurrentBusiness(business._id) }}>Select Business</Button>
+                    </Item.Extra>
+                </Item.Content>
+
+            </Item>);
 
         const ifLoading = this.state.loading ? (
             <Responsive>
@@ -75,10 +84,14 @@ export default class Select extends Component {
             </Responsive>
         ) : (
                 <Responsive>
-                    <Segment.Group className='shadow'>
-                        <BreadCrumb pathName={this.props.match.path} clickHandler={this.props.handleClick} />
-                        {businessList}
-                    </Segment.Group>
+
+                    <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} />
+                    <Divider />
+                    <Segment>
+                        <Item.Group divided relaxed>
+                            {businessList}
+                        </Item.Group>
+                    </Segment>
                 </Responsive>
             );
 

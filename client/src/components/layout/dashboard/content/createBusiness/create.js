@@ -1,32 +1,37 @@
 import React, { Component } from 'react'
 import BreadCrumb from '../breadCrumb/breadcrumb';
-import { Segment, Form, Header, Button, Checkbox, Divider, Icon } from 'semantic-ui-react';
-import { addBusiness } from '../../../../util/logic'
+import { Form, Header, Button, Checkbox, Divider, Icon, Responsive, Dropdown } from 'semantic-ui-react';
+import API from '../../../../util/API';
 import States from '../../../../util/JSON/stateList';
-import Months from '../../../../util/JSON/months';
 
 export default class createBusiness extends Component {
     state = {
         businessName: '',
-        streetAddress: '',
-        firstName: '',
-        lastName: '',
-        eMail: '',
-        businessPhone: '',
-        cellPhone: '',
+        businessAddress: '',
+        businessPostal: '',
+        businessCity: '',
+        businessState: '',
+        businessFirst: '',
+        businessLast: '',
+        businessEmail: '',
+        businessWork: '',
+        businessCell: '',
         user: '',
         tc: false
     }
 
-    componentDidMount() {
-        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
-        // Selects everything at the end of a url -- const regexPath = path.match("[^/]+(?=$|$)");
+    componentDidMount = async () => {
 
-        this.setState({
-            user: Token.userId
-        }, () => {
-            console.log(this.state);
-        })
+        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
+
+        if (!Token.hasOwnProperty("userId")) {
+            console.log("No user ID");
+        } else {
+            this.setState({
+                loading: false,
+                user: Token.userId
+            })
+        }
     }
 
     handleCheckBox = (e) => {
@@ -36,30 +41,38 @@ export default class createBusiness extends Component {
         console.log(this.state.tc)
     }
 
-    handleBioChange = event => {
-        const { name, value } = event.target;
-        this.setState({
-            [name]: value
-        }, () => {
-            //console.log(this.state)
-        })
-    }
+    handleChange = (e, { name, value }) => this.setState({ [name]: value }, () => {
+        console.log(this.state);
+    })
 
     handleFormSubmit = async event => {
         event.preventDefault();
 
+        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
+        const userId = Token.userId
+
         if (this.state.tc) {
             if (this.state.businessName &&
-                this.state.streetAddress &&
-                this.state.firstName &&
-                this.state.lastName &&
-                this.state.eMail &&
-                this.state.businessPhone &&
-                this.state.cellPhone) {
+                this.state.businessAddress &&
+                this.state.businessPostal &&
+                this.state.businessCity &&
+                this.state.businessState &&
+                this.state.businessFirst &&
+                this.state.businessLast &&
+                this.state.businessEmail &&
+                this.state.businessWork &&
+                this.state.businessCell) {
                 try {
-                    const data = await addBusiness(this.state);
-                    console.log("success", data);
-                    this.props.history.push("/business");
+
+                    const res = await API.saveBusiness(this.state)
+
+                    console.log(`This is your response`);
+                    console.log(res.data);
+                    console.log("=============================================");
+
+                    await API.addBusinessToUser(userId, res.data._id)
+
+                    this.setLocalBusiness(res.data._id);
                 } catch (e) {
                     console.log(e);
                 }
@@ -67,130 +80,136 @@ export default class createBusiness extends Component {
         }
     }
 
+    setLocalBusiness = (businessID) => {
+        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
+
+        const parsed = Token;
+
+        parsed["currentBusiness"] = businessID;
+
+        localStorage.setItem('okta-token-storage', JSON.stringify(parsed));
+
+
+        console.log("Token with businessID")
+        console.log(Token);
+        console.log("=============================================")
+
+
+        this.props.history.push("/dashboard")
+    }
+
     render() {
 
         return (
-            <Segment.Group className='shadow'>
-                <BreadCrumb pathName={this.props.match.path} clickHandler={this.props.handleClick} />
-                <Segment>
-                    <Form>
-                        <Header
-                            icon='info circle'
-                            content='Business Information' />
-                        <Divider />
-                        <Form.Group>
-                            <Form.Input
-                                name='businessName'
-                                value={this.state.businessName}
-                                onChange={this.handleBioChange}
-                                width={8}
-                                label='Your Business Name'
-                                placeholder='Your Business Name' />
+            <Responsive>
 
-                            <Form.Input
-                                name='streetAddress'
-                                value={this.state.streetAddress}
-                                onChange={this.handleBioChange}
-                                width={8}
-                                label='Street Address'
-                                placeholder='Street Address' />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Input
-                                name='firstName'
-                                value={this.state.firstName}
-                                onChange={this.handleBioChange}
-                                width={8}
-                                label='First Name'
-                                placeholder='First Name' />
-                            <Form.Input
-                                name='lastName'
-                                value={this.state.lastName}
-                                width={8}
-                                onChange={this.handleBioChange}
-                                label='Last Name'
-                                placeholder='Last Name' />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Input
-                                name='eMail'
-                                value={this.state.eMail}
-                                onChange={this.handleBioChange}
-                                width={8}
-                                label='Email'
-                                placeholder='Email' />
-                            <Form.Input
-                                name='businessPhone'
-                                value={this.state.businessPhone}
-                                onChange={this.handleBioChange}
-                                width={4}
-                                label='Work Phone'
-                                placeholder='Work Phone' />
-                            <Form.Input
-                                name='cellPhone'
-                                value={this.state.cellPhone}
-                                onChange={this.handleBioChange}
-                                width={4}
-                                label='Cell Phone'
-                                placeholder='Cell Phone' />
-                        </Form.Group>
-                        <Header
-                            icon='credit card'
-                            content='Billing Information' />
-                        <Divider />
-                        <Form.Group>
-                            <Form.Input
-                                width={10}
-                                label='Billing Address'
-                                placeholder='Billing Address' />
-                            <Form.Input
-                                width={3}
-                                label='Appartment #'
-                                placeholder='Appartment #' />
-                            <Form.Dropdown
+                <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} />
+                <Divider />
+                <Form>
+                    <Header
+                        icon='info circle'
+                        content='Business Information' />
+                    <Divider />
+                    <Form.Group>
+                        <Form.Input required
+                            name='businessName'
+                            value={this.state.businessName}
+                            onChange={this.handleChange}
+                            width={6}
+                            label='Your Business Name'
+                            placeholder='Best Business Inc' />
+
+                        <Form.Input required
+                            name='businessAddress'
+                            value={this.state.businessAddress}
+                            onChange={this.handleChange}
+                            width={6}
+                            label='Street Address'
+                            placeholder='1234 Business Rd' />
+
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Input required
+                            name='businessPostal'
+                            value={this.state.businessPostal}
+                            onChange={this.handleChange}
+                            width={4}
+                            label='Postal Code'
+                            placeholder='12345' />
+                        <Form.Input required
+                            name='businessCity'
+                            value={this.state.businessCity}
+                            onChange={this.handleChange}
+                            width={4}
+                            label='City'
+                            placeholder='Richmond' />
+                        <Form.Field required width={4}>
+                            <label>State</label>
+                            <Dropdown
+                                fluid
+                                onChange={this.handleChange}
                                 closeOnChange
                                 selection
+                                name="businessState"
                                 options={States}
-                                label='State'
                                 placeholder='State' />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Input
-                                width={6}
-                                label='Name On Card'
-                                placeholder='Name On Card' />
-                            <Form.Input
-                                width={3}
-                                label='Card #'
-                                placeholder='Card #' />
-                            <Form.Input
-                                width={2}
-                                label='CVC'
-                                placeholder='CVC' />
-                            <Form.Dropdown
-                                closeOnChange
-                                selection
-                                options={Months}
-                                label='Month'
-                                placeholder='Month' />
-                            <Form.Input
-                                width={2}
-                                label={'Year'}
-                                maxLength="4"
-                                placeholder='Year' />
-                        </Form.Group>
-                        <Form.Group>
-                            <Checkbox
-                                onChange={this.handleCheckBox}
-                                className='createBusinessCheck'
-                                label='I agree to the Terms and Conditions' />
-                        </Form.Group>
-                        <Button positive onClick={this.handleFormSubmit} type='submit'>
-                        <Icon name='cloud'/>
+                        </Form.Field>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Input required
+                            name='businessFirst'
+                            value={this.state.businessFirst}
+                            onChange={this.handleChange}
+                            width={6}
+                            label='First Name'
+                            placeholder='John' />
+                        <Form.Input required
+                            name='businessLast'
+                            value={this.state.businessLast}
+                            width={6}
+                            onChange={this.handleChange}
+                            label='Last Name'
+                            placeholder='Doe' />
+                        <Form.Input required
+                            name='businessEmail'
+                            value={this.state.businessEmail}
+                            onChange={this.handleChange}
+                            width={6}
+                            label='Business Email'
+                            placeholder='johndoe@examplemail.com' />
+                    </Form.Group>
+                    <Form.Group>
+
+                        <Form.Input required
+                            name='businessWork'
+                            value={this.state.businessWork}
+                            onChange={this.handleChange}
+                            fluid
+                            width={4}
+                            label='Work Phone'
+                            placeholder='1234567890' />
+                        <Form.Input
+                            name='businessCell'
+                            value={this.state.businessCell}
+                            onChange={this.handleChange}
+                            width={4}
+                            label='Cell Phone'
+                            placeholder='1234567890' />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Field required>
+                        <Checkbox
+                            onChange={this.handleCheckBox}
+                            label='I agree to the Terms and Conditions' />
+
+                        </Form.Field>
+                    </Form.Group>
+
+                    <Button positive onClick={this.handleFormSubmit} type='submit'>
+                        <Icon name='cloud' />
                         Submit</Button>
-                    </Form>
-                </Segment>
-            </Segment.Group>
+                </Form>
+            </Responsive >
         )
     }
 }

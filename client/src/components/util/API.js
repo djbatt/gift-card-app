@@ -2,9 +2,20 @@ import axios from "axios";
 
 export default {
 
+  //Gift API below
+  sendEmail: function(emailBody) {
+    return axios.post(`/api/gift`, emailBody)
+  },
+
+  //Business API below
+
   //Save a new business to the db
   saveBusiness: function(businessData) {
     return axios.post(`/api/business`, businessData);
+  },
+
+  updateBusiness: function(id, businessData) {
+    return axios.post(`/api/business/${id}`, businessData);
   },
 
   //get the Business data for single business
@@ -45,9 +56,4 @@ export default {
   hasBusiness: function(id) {
     return axios.get(`api/users/ifb/${id}`);
   }
-
-  // // Deletes the book with the given id
-  // deleteBook: function(id) {
-  //   return axios.delete("/api/books/" + id);
-  // }
 };
