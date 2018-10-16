@@ -29,7 +29,7 @@ export default class Select extends Component {
                     this.setState({
                         loading: false
                     }, () => {
-                        this.props.history.push('/business/create')
+                        this.props.history.push('/dashboard/create')
                     })
                 } else {
                     this.setState({
