@@ -41,6 +41,7 @@ export default class Gift extends Component {
                     business: res.data[0],
                     loading: false
                 }, () => {
+                    console.log('Business!')
                     console.log(this.state);
                 })
 

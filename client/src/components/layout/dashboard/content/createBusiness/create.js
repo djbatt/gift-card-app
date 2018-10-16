@@ -103,7 +103,7 @@ export default class createBusiness extends Component {
         return (
             <Responsive>
 
-                <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} />
+                <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler}/>
                 <Divider />
                 <Form>
                     <Header

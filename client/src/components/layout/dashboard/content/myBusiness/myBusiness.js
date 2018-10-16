@@ -12,7 +12,7 @@ export default class MyBusiness extends Component {
 
   async componentDidMount() {
 
-    console.log("Path", this.props.match)
+    console.log("Path", this.props)
 
     const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
 
@@ -62,8 +62,7 @@ export default class MyBusiness extends Component {
       </Responsive>
     ) : (
         <Responsive>
-
-          <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout}/>
+          <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler}/>
           <Divider />
           <Header block>
             <Icon name='linkify'/>

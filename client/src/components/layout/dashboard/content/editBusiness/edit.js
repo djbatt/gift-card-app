@@ -137,7 +137,7 @@ export default class Edit extends Component {
         ) : (
                 <Responsive>
 
-                    <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} />
+                    <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler}/>
                     <Divider />
                     <Grid padded>
                         <Grid.Row>

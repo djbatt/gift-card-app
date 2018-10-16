@@ -35,7 +35,7 @@ export default class Select extends Component {
                     this.setState({
                         businessArray: res.data,
                         loading: false
-                    })
+                    });
 
                 }
 
@@ -70,16 +70,16 @@ export default class Select extends Component {
                     </Item.Header>
                     <Item.Meta>
                         <br></br>
-                        <span>Street Address: {business.streetAddress}</span>
+                        <span>Street Address: {business.businessAddress}</span>
                         <br></br>
                         <br></br>
-                        <span>Email: {business.eMail}</span>
+                        <span>Email: {business.businessEmail}</span>
                         <br></br>
                         <br></br>
-                        <span>Business Phone: {business.businessPhone}</span>
+                        <span>Business Phone: {business.businessWork}</span>
                         <br></br>
                         <br></br>
-                        <span>Cell Phone: {business.cellPhone}</span>
+                        <span>Cell Phone: {business.businessCell}</span>
                     </Item.Meta>
                     <Item.Extra>
                         <Button positive floated='right' type='submit' onClick={() => { this.addCurrentBusiness(business._id) }}>Select Business</Button>
@@ -95,7 +95,7 @@ export default class Select extends Component {
         ) : (
                 <Responsive>
 
-                    <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} />
+                    <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler}/>
                     <Divider />
                     <Segment>
                         <Item.Group divided relaxed>

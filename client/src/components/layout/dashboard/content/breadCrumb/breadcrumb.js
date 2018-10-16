@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Breadcrumb, Menu, Responsive } from 'semantic-ui-react';
+import BurgerMenu from './burgerMenu';
 
 export default class BreadCrumb extends Component {
 
@@ -9,8 +10,6 @@ export default class BreadCrumb extends Component {
         const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
 
         const userEmail = Token.idToken.claims.email;
-
-        //console.log("breadcrumb props: ", this.props)
         const pathname = this.props.pathName;
         const lastWord = pathname.match("[^/]+(?=$|$)");
         // const slashCountRegex = /\//g;
@@ -19,7 +18,10 @@ export default class BreadCrumb extends Component {
         switch (lastWord[0]) {
             case "dashboard":
                 return (
-                    <Menu secondary stackable size='huge'>
+                    <Menu secondary size='huge'>
+                    <Menu.Item className='burgerSlot'>
+                        <BurgerMenu handler={this.props.handler}/>
+                    </Menu.Item>
                         <Responsive minWidth={768}>
                             <Menu.Item>
                                 <Breadcrumb size='big'>
@@ -32,7 +34,7 @@ export default class BreadCrumb extends Component {
                             </Menu.Item>
                         </Responsive>
                         <Menu.Menu position='right'>
-                            <Menu.Item
+                            <Menu.Item as={Responsive} minWidth={410}
                                 content={userEmail} />
                             <Menu.Item
                                 as={Link} to='/'
@@ -43,7 +45,10 @@ export default class BreadCrumb extends Component {
                 )
             case "verify":
                 return (
-                    <Menu secondary stackable size='huge'>
+                    <Menu secondary size='huge'>
+                    <Menu.Item className='burgerSlot'>
+                        <BurgerMenu handler={this.props.handler}/>
+                    </Menu.Item>
                         <Responsive minWidth={768}>
                             <Menu.Item>
                                 <Breadcrumb size='big'>
@@ -57,7 +62,7 @@ export default class BreadCrumb extends Component {
                             </Menu.Item>
                         </Responsive>
                         <Menu.Menu position='right'>
-                            <Menu.Item
+                            <Menu.Item as={Responsive} minWidth={410}
                                 content={userEmail} />
                             <Menu.Item
                                 as={Link} to='/'
@@ -68,7 +73,10 @@ export default class BreadCrumb extends Component {
                 )
             case "edit":
                 return (
-                    <Menu secondary stackable size='huge'>
+                    <Menu secondary size='huge'>
+                    <Menu.Item className='burgerSlot'>
+                        <BurgerMenu handler={this.props.handler}/>
+                    </Menu.Item>
                         <Responsive minWidth={768}>
                             <Menu.Item>
                                 <Breadcrumb size='big'>
@@ -82,7 +90,7 @@ export default class BreadCrumb extends Component {
                             </Menu.Item>
                         </Responsive>
                         <Menu.Menu position='right'>
-                            <Menu.Item
+                            <Menu.Item as={Responsive} minWidth={410}
                                 content={userEmail} />
                             <Menu.Item
                                 as={Link} to='/'
@@ -93,7 +101,10 @@ export default class BreadCrumb extends Component {
                 )
             case "select":
                 return (
-                    <Menu secondary stackable size='huge'>
+                    <Menu secondary size='huge'>
+                    <Menu.Item className='burgerSlot'>
+                        <BurgerMenu handler={this.props.handler}/>
+                    </Menu.Item>
                         <Responsive minWidth={768}>
                             <Menu.Item>
                                 <Breadcrumb size='big'>
@@ -107,7 +118,7 @@ export default class BreadCrumb extends Component {
                             </Menu.Item>
                         </Responsive>
                         <Menu.Menu position='right'>
-                            <Menu.Item
+                            <Menu.Item as={Responsive} minWidth={410}
                                 content={userEmail} />
                             <Menu.Item
                                 as={Link} to='/'
@@ -118,7 +129,10 @@ export default class BreadCrumb extends Component {
                 )
             case "create":
                 return (
-                    <Menu secondary stackable size='huge'>
+                    <Menu secondary size='huge'>
+                    <Menu.Item className='burgerSlot'>
+                        <BurgerMenu handler={this.props.handler}/>
+                    </Menu.Item>
                         <Responsive minWidth={768}>
                             <Menu.Item>
                                 <Breadcrumb size='big'>
@@ -132,7 +146,7 @@ export default class BreadCrumb extends Component {
                             </Menu.Item>
                         </Responsive>
                         <Menu.Menu position='right'>
-                            <Menu.Item
+                            <Menu.Item as={Responsive} minWidth={410}
                                 content={userEmail} />
                             <Menu.Item
                                 as={Link} to='/'
@@ -143,7 +157,10 @@ export default class BreadCrumb extends Component {
                 )
             case "support":
                 return (
-                    <Menu secondary stackable size='huge'>
+                    <Menu secondary size='huge'>
+                    <Menu.Item className='burgerSlot'>
+                        <BurgerMenu handler={this.props.handler}/>
+                    </Menu.Item>
                         <Responsive minWidth={768}>
                             <Menu.Item>
                                 <Breadcrumb size='big'>
@@ -157,7 +174,7 @@ export default class BreadCrumb extends Component {
                             </Menu.Item>
                         </Responsive>
                         <Menu.Menu position='right'>
-                            <Menu.Item
+                            <Menu.Item as={Responsive} minWidth={410}
                                 content={userEmail} />
                             <Menu.Item
                                 as={Link} to='/'
@@ -168,7 +185,10 @@ export default class BreadCrumb extends Component {
                 )
             case "faq":
                 return (
-                    <Menu secondary stackable size='huge'>
+                    <Menu secondary size='huge'>
+                    <Menu.Item className='burgerSlot'>
+                        <BurgerMenu handler={this.props.handler}/>
+                    </Menu.Item>
                         <Responsive minWidth={768}>
                             <Menu.Item>
                                 <Breadcrumb size='big'>
@@ -182,7 +202,7 @@ export default class BreadCrumb extends Component {
                             </Menu.Item>
                         </Responsive>
                         <Menu.Menu position='right'>
-                            <Menu.Item
+                            <Menu.Item as={Responsive} minWidth={410}
                                 content={userEmail} />
                             <Menu.Item
                                 as={Link} to='/'
@@ -193,7 +213,10 @@ export default class BreadCrumb extends Component {
                 )
                 default:
                     return (
-                        <Menu secondary stackable size='huge'>
+                        <Menu secondary size='huge'>
+                        <Menu.Item className='burgerSlot'>
+                            <BurgerMenu handler={this.props.handler}/>
+                        </Menu.Item>
                             <Responsive minWidth={768}>
                                 <Menu.Item>
                                     <Breadcrumb size='big'>
@@ -206,8 +229,8 @@ export default class BreadCrumb extends Component {
                                 </Menu.Item>
                             </Responsive>
                             <Menu.Menu position='right'>
-                                <Menu.Item
-                                    content={userEmail} />
+                            <Menu.Item as={Responsive} minWidth={410}
+                                content={userEmail} />
                                 <Menu.Item
                                     as={Link} to='/'
                                     content='Logout'
