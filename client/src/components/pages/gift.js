@@ -6,22 +6,23 @@ import API from '../util/API';
 export default class Gift extends Component {
 
     state = {
+        business: {},
         loading: true,
         gift: '',
+        dollarAmount: '',
+        chosenCode: '',
         design: '',
         delivery: '',
         recipientEmail: '',
         recipientName: '',
-        title: '',
-        message: '',
-        to: '',
-        from: '',
+        giftTitle: '',
+        giftMessage: '',
+        giftTo: '',
+        giftFrom: '',
         sourceEmail: '',
         sourcePhone: '',
         sourceFirst: '',
         sourceLast: '',
-        dollarAmount: '',
-        chosenCode: '',
     }
 
     componentDidMount = async () => {
@@ -77,17 +78,19 @@ export default class Gift extends Component {
         }, async () => {
 
             const emailData = {
-                businessId: this.state.business._id,
-                business: this.state.business.businessName,
-                title: this.state.title,
-                message: this.state.message,
-                to: this.state.to,
-                from: this.state.from,
+                business: this.state.business,
                 recipientEmail: this.state.recipientEmail,
+                recipientName: this.state.recipientName,
+                giftTitle: this.state.giftTitle,
+                giftMessage: this.state.giftMessage,
+                giftTo: this.state.giftTo,
+                giftFrom: this.state.giftFrom,
+                sourceEmail: this.state.sourceEmail,
+                sourcePhone: this.state.sourcePhone,
+                sourceFirst: this.state.sourceFirst,
+                sourceLast: this.state.sourceLast,
                 code: this.state.chosenCode,
-                gift: this.state.dollarAmount,
-                colorOne: this.state.business.colorOne,
-                colorTwo: this.state.business.colorTwo
+                gift: this.state.dollarAmount
             }
 
             try {
@@ -207,7 +210,7 @@ export default class Gift extends Component {
                                     content='Gift Information' />
                                 <Divider />
                                 <Form.Group>
-                                    <Form.Input
+                                    <Form.Input required
                                         name='recipientEmail'
                                         value={this.state.recipientEmail}
                                         onChange={this.handleFormChange}
@@ -215,7 +218,7 @@ export default class Gift extends Component {
                                         label='Recipient Email'
                                         placeholder='theiremail@examplemail.com' />
 
-                                    <Form.Input
+                                    <Form.Input required
                                         name='recipientName'
                                         value={this.state.recipientName}
                                         onChange={this.handleFormChange}
@@ -225,9 +228,9 @@ export default class Gift extends Component {
                                 </Form.Group>
                                 <Form.Group>
 
-                                    <Form.Input
-                                        name='title'
-                                        value={this.state.title}
+                                    <Form.Input required
+                                        name='giftTitle'
+                                        value={this.state.giftTitle}
                                         onChange={this.handleFormChange}
                                         width={16}
                                         label='Title'
@@ -235,9 +238,9 @@ export default class Gift extends Component {
 
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Field
-                                        name='message'
-                                        value={this.state.message}
+                                    <Form.Field required
+                                        name='giftMessage'
+                                        value={this.state.giftMessage}
                                         onChange={this.handleFormChange}
                                         control={TextArea}
                                         width={16}
@@ -246,17 +249,17 @@ export default class Gift extends Component {
                                 </Form.Group>
                                 <Form.Group>
 
-                                    <Form.Input
-                                        name='to'
-                                        value={this.state.to}
+                                    <Form.Input required
+                                        name='giftTo'
+                                        value={this.state.giftTo}
                                         onChange={this.handleFormChange}
                                         width={8}
                                         label='To'
                                         placeholder='Jane Doe' />
 
-                                    <Form.Input
-                                        name='from'
-                                        value={this.state.from}
+                                    <Form.Input required
+                                        name='giftFrom'
+                                        value={this.state.giftFrom}
                                         onChange={this.handleFormChange}
                                         width={8}
                                         label='From'
@@ -268,7 +271,7 @@ export default class Gift extends Component {
                                     content='Your Information' />
                                 <Divider />
                                 <Form.Group>
-                                    <Form.Input
+                                    <Form.Input required
                                         name='sourceEmail'
                                         value={this.state.sourceEmail}
                                         onChange={this.handleFormChange}
@@ -276,7 +279,7 @@ export default class Gift extends Component {
                                         label='Email'
                                         placeholder='youremail@examplemail.com' />
 
-                                    <Form.Input
+                                    <Form.Input required
                                         name='sourcePhone'
                                         value={this.state.sourcePhone}
                                         onChange={this.handleFormChange}
@@ -284,7 +287,7 @@ export default class Gift extends Component {
                                         label='Phone Number'
                                         placeholder='123-456-7890' />
 
-                                    <Form.Input
+                                    <Form.Input required
                                         name='sourceFirst'
                                         value={this.state.sourceFirst}
                                         onChange={this.handleFormChange}
@@ -292,7 +295,7 @@ export default class Gift extends Component {
                                         label='First Name'
                                         placeholder='John' />
 
-                                    <Form.Input
+                                    <Form.Input required
                                         name='sourceLast'
                                         value={this.state.sourceLast}
                                         onChange={this.handleFormChange}
@@ -301,10 +304,11 @@ export default class Gift extends Component {
                                         placeholder='Doe' />
                                 </Form.Group>
                                 <Form.Group>
+                                    <Form.Field required>
                                     <Checkbox
                                         onChange={this.handleCheckBox}
-                                        className='createBusinessCheck'
                                         label='I agree to the Terms and Conditions' />
+                                    </Form.Field>
                                 </Form.Group>
                                 <Button positive onClick={this.handleFormSubmit} type='submit'>
                                     <Icon name='inbox' />
