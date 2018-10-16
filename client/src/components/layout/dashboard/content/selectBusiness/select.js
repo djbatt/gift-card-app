@@ -25,10 +25,20 @@ export default class Select extends Component {
                 console.log(res.data);
                 console.log("=============================================");
 
-                this.setState({
-                    businessArray: res.data,
-                    loading: false
-                })
+                if (!res.data.length) {
+                    this.setState({
+                        loading: false
+                    }, () => {
+                        this.props.history.push('/business/create')
+                    })
+                } else {
+                    this.setState({
+                        businessArray: res.data,
+                        loading: false
+                    })
+
+                }
+
 
             } catch (e) {
                 console.log(e);
