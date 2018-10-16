@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PickDesign from '../layout/gift/pickDesign';
 import { Segment, Form, Header, Button, Checkbox, Divider, TextArea, Radio, Icon, Container, Loader, Responsive } from 'semantic-ui-react';
-import { findBusiness } from '../util/logic'
+import API from '../util/API';
 
 export default class Gift extends Component {
 
@@ -21,20 +21,32 @@ export default class Gift extends Component {
         sourceFirst: '',
         sourceLast: '',
         dollarAmount: '',
+        chosenCode: '',
     }
 
     componentDidMount = async () => {
         const pathname = this.props.match.url;
-        const lastWord = pathname.match("[^/]+(?=$|$)");
+        const lastString = pathname.match("[^/]+(?=$|$)");
         try {
-            const data = await findBusiness(lastWord);
-            this.setState({
-                business: data[0],
-                loading: false
-            }, () => {
-                console.log(this.state);
-            })
+            const res = await API.getBusiness(lastString)
+
+            if (!res.data.length) {
+                //Push us to 404
+            } else {
+
+                console.log(`This is your response`);
+                console.log(res.data);
+                console.log("=============================================");
+                this.setState({
+                    business: res.data[0],
+                    loading: false
+                }, () => {
+                    console.log(this.state);
+                })
+
+            }
         } catch (e) {
+
             console.log(e)
         }
     }
@@ -46,6 +58,45 @@ export default class Gift extends Component {
 
 
     handleFormSubmit = () => {
+
+        var arr = []
+
+        while (arr.length < 40000) {
+            var randomnumber = Math.floor(Math.random() * 200000) + 111111;
+            if (arr.indexOf(randomnumber) > -1) continue;
+            arr[arr.length] = randomnumber;
+        }
+
+        const giftCode = arr[Math.floor(Math.random() * arr.length)];
+
+        console.log(arr.indexOf(giftCode))
+
+        this.setState({
+            chosenCode: giftCode
+        }, async () => {
+
+            const emailData = {
+                businessId: this.state.business._id,
+                business: this.state.business.businessName,
+                title: this.state.title,
+                message: this.state.message,
+                to: this.state.to,
+                from: this.state.from,
+                recipientEmail: this.state.recipientEmail,
+                code: this.state.chosenCode,
+                gift: this.state.dollarAmount,
+                colorOne: this.state.business.colorOne,
+                colorTwo: this.state.business.colorTwo
+            }
+
+            try {
+                const data = await API.sendEmail(emailData)
+                console.log(data)
+            } catch (e) {
+                console.log(e)
+            }
+
+        })
     }
 
     handleFormChange = event => {

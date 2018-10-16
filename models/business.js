@@ -3,15 +3,23 @@ const Schema = mongoose.Schema;
 
 const businessSchema = new Schema({
     businessName: {type: String, required: true},
-    streetAddress: {type: String, required: true},
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
-    eMail: {type: String, required: true},
-    businessPhone: {type: Number, required: true},
-    cellPhone: {type: Number, required: true},
-    dateCreated: {type: Date, default: Date.now, required: true},
+    businessAddress: {type: String, required: true},
+    businessPostal: {type: Number, required: true},
+    businessCity: {type: String, required: true},
+    businessState: {type: String, required: true},
+    businessFirst: {type: String, required: true},
+    businessLast: {type: String, required: true},
+    businessEmail: {type: String, required: true},
+    businessWork: {type: Number, required: true},
+    businessCell: {type: Number},
+    colorOne: {type: String, default: '#f6f6f6'},
+    colorTwo: {type: String, default: '#e9e9e9'},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
-    category: [{type: Schema.Types.ObjectId, ref: 'Category'}]
+    gifts: [{type: Schema.Types.ObjectId, ref: 'Gift'}],
+    sources: [{type: Schema.Types.ObjectId, ref: 'Source'}],
+    categorys: [{type: Schema.Types.ObjectId, ref: 'Category'}]
+}, {
+    timestamps: true
 });
 
 const Business = mongoose.model("Business", businessSchema);

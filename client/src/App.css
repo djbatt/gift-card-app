@@ -67,6 +67,10 @@
     background-color: #f8f8f8 !important;
 }
 
+.picker {
+    margin-right: 0px !important;
+}
+
 /* 
     -webkit-box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15) !important;
     box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15) !important; */

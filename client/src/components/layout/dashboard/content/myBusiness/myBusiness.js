@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { findBusiness } from '../../../../util/logic';
+import React, { Component } from 'react';
+import API from '../../../../util/API';
 import { Link } from 'react-router-dom';
 import BreadCrumb from '../breadCrumb/breadcrumb';
 import { Divider, Responsive, Loader, Header, Icon, Grid } from 'semantic-ui-react';
@@ -31,47 +31,25 @@ export default class MyBusiness extends Component {
         console.log("You have a business selected");
         this.getBusiness(Token.currentBusiness);
       }
-      // try {
-      //   const data = await hasBusiness(Token.userId)
-      //   console.log("hasBusiness returned:", data);
-
-      //   const dataLength = data.length;
-
-      //     if (!dataLength) {
-      //       console.log("No business!");
-      //       this.setState({
-      //         loading: false
-      //       }, () => {
-      //         this.props.history.push("/createbusiness")
-      //       })
-      //     } else if (dataLength === 1) {
-      //       console.log("One business");
-      //       this.getBusiness(this.state.businessArray[0]);
-      //     } else {
-      //       console.log("More than one business")
-      //     }
-      // } catch (e) {
-      //   console.log(e);
-      // }
     }
   }
 
-  getBusiness = async (businessId) => {
+  getBusiness = async (id) => {
     try {
-      const data = await findBusiness(businessId)
+      const res = await API.getBusiness(id)
+  
+      console.log(`This is your response`);
+      console.log(res.data);
+      console.log("=============================================");
       this.setState({
-        business: data[0],
+        business: res.data[0],
         loading: false
       }, () => {
-        console.log(data[0]);
+        console.log(res.data[0]);
       })
     } catch (e) {
       console.log(e);
     }
-  }
-
-  goToGiftPage = () => {
-
   }
 
   render() {

@@ -8,6 +8,16 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  updateBusiness: function(req, res) {
+    db.Business
+    .update({_id: req.params.id}, {$set: {businessName: req.body.businessName, businessAddress: req.body.businessAddress, 
+      businessPostal: req.body.businessPostal, businessCity: req.body.businessCity, businessState: req.body.businessState, 
+      businessFirst: req.body.businessFirst, businessLast: req.body.businessLast, businessEmail: req.body.businessEmail, 
+      businessWork: req.body.businessWork, businessCell: req.body.businessCell, colorOne: req.body.colorOne, colorTwo: req.body.colorTwo} })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err))
+  },
+
   getMany: function(req, res) { //Get all business(s) from userID
     db.Business
     .find({user: req.params.id})

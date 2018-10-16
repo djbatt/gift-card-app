@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Responsive } from 'semantic-ui-react';
 import { withAuth } from '@okta/okta-react';
-import { updateDB } from '../../util/logic';
+import API from '../../util/API';
+//import { updateDB } from '../../util/logic';
 
 import { SecureRoute } from '@okta/okta-react';
 
@@ -15,11 +16,51 @@ export default withAuth(class AuthContainer extends Component {
     }
 
     checkUser = async () => {
+
+        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
+
+        const userName = Token.idToken.claims.name;
+        const userEmail = Token.idToken.claims.email;
+        const userUnique = Token.idToken.claims.sub;
+
         try {
-            await updateDB()
+            const res = await API.findUser(userUnique) //Check if there is a user in the db, matching the oktaUnique
+
+            if (!res.data.length) {
+
+                //If not, save the user to the db
+
+                const saved = await API.saveUser({ name: userName, email: userEmail, oktaUnique: userUnique })
+
+                // console.log("You have no user saved, here is your user")
+                // console.log(saved.data);
+                // console.log("=============================================");
+
+                this.adduId(Token, saved.data._id); // Add uid to localstorage
+
+            } else {
+                // console.log("We already have your user saved")
+                // console.log(res.data);
+                // console.log("=============================================")
+
+                this.adduId(Token, res.data[0]._id); // Add uid to localstorage
+            }
         } catch (e) {
             console.log(e);
         }
+    }
+
+    adduId = (Token, uId) => {
+        const parsed = Token;
+
+        parsed["userId"] = uId;
+
+        localStorage.setItem('okta-token-storage', JSON.stringify(parsed));
+
+
+        console.log("Token with UID")
+        console.log(Token);
+        console.log("=============================================")
     }
 
 
@@ -55,9 +96,12 @@ export default withAuth(class AuthContainer extends Component {
         if (this.state.authenticated === null) return null;
 
         return (
+            <div>
             <Responsive>
-                <SecureRoute path="/dashboard" exact={false} render={(props) => <Dashboard {...props} login={this.login} logout={this.logout}/>} />
+                <SecureRoute path="/dashboard" exact={false} render={(props) => <Dashboard {...props} login={this.login} logout={this.logout} />} />
             </Responsive>
+               
+            </div>
         );
     }
 });

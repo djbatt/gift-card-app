@@ -10,7 +10,7 @@ export default class BreadCrumb extends Component {
 
         const userEmail = Token.idToken.claims.email;
 
-        console.log("breadcrumb props: ", this.props)
+        //console.log("breadcrumb props: ", this.props)
         const pathname = this.props.pathName;
         const lastWord = pathname.match("[^/]+(?=$|$)");
         // const slashCountRegex = /\//g;
