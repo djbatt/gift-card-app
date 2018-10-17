@@ -14,10 +14,12 @@ const businessSchema = new Schema({
     businessCell: {type: Number},
     colorOne: {type: String, default: '#f6f6f6'},
     colorTwo: {type: String, default: '#e9e9e9'},
+    colorThree: {type: String, default: '#4183c4'},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     gifts: [{type: Schema.Types.ObjectId, ref: 'Gift'}],
+    recipients: [{type: Schema.Types.ObjectId, ref: 'Recipient'}],
     sources: [{type: Schema.Types.ObjectId, ref: 'Source'}],
-    categorys: [{type: Schema.Types.ObjectId, ref: 'Category'}]
+    services: [{type: Schema.Types.ObjectId, ref: 'Service'}]
 }, {
     timestamps: true
 });

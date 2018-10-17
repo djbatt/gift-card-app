@@ -9,7 +9,7 @@ export default class SideNavWide extends Component {
         return (
             <Menu secondary vertical fluid size='large'>
                 <Menu.Item>
-                    <img className='dashLogoWide' src='/images/ugift2.PNG' alt='Logo' />
+                    <img className='dashLogoWide' src='https://ugiftonline.com:2083/cpsess0512316919/viewer/home4%2fdjbatt%2fpublic_html%2fimages/ugift2.png' alt='Logo' />
                 </Menu.Item>
                 <Menu.Item
                     as={Link} to='/dashboard'

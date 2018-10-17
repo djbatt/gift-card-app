@@ -15,7 +15,6 @@ import Support from '../layout/dashboard/content/support/support';
 import FAQ from '../layout/dashboard/content/faq/faq';
 
 const Dashboard = (props) => {
-
   return (
     <Responsive>
       <Grid celled padded className='fillPage'>

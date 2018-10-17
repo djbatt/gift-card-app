@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import BreadCrumb from '../breadCrumb/breadcrumb';
 import GiftPreview from './giftPreview';
+import { Link } from 'react-router-dom';
 import { CirclePicker } from 'react-color';
-import { Responsive, Form, Dropdown, Popup, Header, Loader, Button, Divider, Grid} from 'semantic-ui-react';
+import { Responsive, Form, Dropdown, Popup, Header, Loader, Button, Divider, Grid, Icon } from 'semantic-ui-react';
 import API from '../../../../util/API';
 import States from '../../../../util/JSON/stateList';
 
@@ -11,7 +12,25 @@ export default class Edit extends Component {
     state = {
         business: {},
         loading: true,
-        isOpen: false
+        isOpen: false,
+        serviceArray: [],
+        serviceOptions: [{
+            text: "No Service Yet",
+            key: "noServ",
+            value: "noServ"
+        }],
+        categoryArray: [{
+            text: "No Cat Yet",
+            key: "noCat",
+            value: "noCat"
+        }],
+        selectedService: null,
+        fullSelectedService: {
+            serviceCategory: '',
+            serviceName: '',
+            serviceDescription: '',
+            servicePrice: 0
+        }
     }
 
     async componentDidMount() {
@@ -31,10 +50,17 @@ export default class Edit extends Component {
                 })
             } else {
                 console.log("You have a business selected");
-                this.getBusiness(Token.currentBusiness);
+                await this.getBusiness(Token.currentBusiness);
+                await this.getServices(Token.currentBusiness);
+                await this.setServiceOptions();
+                await this.setCategoryArray();
+
+                this.setState({
+                    loading: false
+                })
             }
         }
-    }
+    };
 
     getBusiness = async (id) => {
         try {
@@ -44,19 +70,184 @@ export default class Edit extends Component {
             console.log(res.data);
             console.log("=============================================");
             this.setState({
-                business: res.data[0],
-                loading: false,
-                colorOne: res.data[0].colorOne,
-                colorTwo: res.data[0].colorTwo
+                business: res.data[0]
             }, () => {
                 console.log("State on load", this.state)
             })
         } catch (e) {
             console.log(e);
         }
+    };
+
+    getServices = async (id) => {
+        try {
+            const services = await API.getServices(id)
+
+            if (!services.data.length) {
+                console.log("No services")
+            } else {
+                await this.setState({
+                    serviceArray: services.data
+                })
+
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    };
+
+    setServiceOptions = async () => {
+        const serviceOptionsLocalScope = []
+        for (var i = 0; i < this.state.serviceArray.length; i++) {
+            serviceOptionsLocalScope.push({
+                text: this.state.serviceArray[i].serviceName,
+                key: this.state.serviceArray[i]._id,
+                value: this.state.serviceArray[i]._id
+            });
+        }
+
+        await this.setState({
+            serviceOptions: serviceOptionsLocalScope
+        }, () => {
+            console.log("After service options set", this.state)
+        })
+    };
+
+    setCategoryArray = async () => {
+        const categoryArrayLocalScope = []
+
+        for (var i = 0; i < this.state.serviceArray.length; i++) {
+            categoryArrayLocalScope.push({
+                text: this.state.serviceArray[i].serviceCategory,
+                key: this.state.serviceArray[i].serviceCategory,
+                value: this.state.serviceArray[i].serviceCategory
+            });
+        }
+        await this.setState({
+            categoryArray: categoryArrayLocalScope
+        }, () => {
+            this.getServices();
+        })
+    };
+
+    //Color Functions
+
+    defaultColors = () => {
+        const business = this.state.business;
+        business.colorOne = '#f6f6f6';
+        business.colorTwo = '#e9e9e9';
+        business.colorThree = '#4183c4';
+
+        this.forceUpdate();
     }
 
+    handleChangeColorOne = (color) => {
+        const business = this.state.business;
+        business.colorOne = color.hex;
+
+        this.forceUpdate();
+    };
+
+    handleChangeColorTwo = (color) => {
+        const business = this.state.business;
+        business.colorTwo = color.hex;
+
+        this.forceUpdate();
+        //this.setState({ colorTwo: color.hex }, console.log(this.state));
+    };
+
+    handleChangeColorThree = (color) => {
+        const business = this.state.business;
+        business.colorThree = color.hex;
+
+        this.forceUpdate();
+        //this.setState({ colorTwo: color.hex }, console.log(this.state));
+    };
+
+    //Handle buttons or state changes
+
+    handleChange = (e, { name, value }) => {
+        const business = this.state.business;
+        business[name] = value
+
+        this.forceUpdate();
+    };
+
+    handleSelectedServiceChange = (e, { name, value }) => {
+        const selected = this.state.fullSelectedService;
+        selected[name] = value
+
+        this.forceUpdate();
+    };
+
+    handleServiceChange = (e, { name, value }) => {
+        this.setState({
+            [name]: value
+        })
+    };
+
+    handleServiceSelect = (e, { name, value }) => {
+        this.setState({
+            selectedService: value
+        }, () => {
+            this.getService(value)
+        })
+    };
+
+    getService = async (id) => {
+        try {
+            const service = await API.getService(id)
+            this.setState({
+                fullSelectedService: service.data[0]
+            }, () => {
+                console.log(this.state.fullSelectedService)
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    };
+
+    handleService = async () => {
+        const serviceBody = {
+            serviceCategory: this.state.serviceCategory,
+            serviceName: this.state.serviceName,
+            serviceDescription: this.state.serviceDescription,
+            servicePrice: this.state.servicePrice,
+            business: this.state.business._id
+        }
+
+        if (this.state.serviceCategory === 'noService') {
+            alert("Add a service in the text box!")
+        } else {
+
+            try {
+                const service = await API.addService(serviceBody)
+                const localScopeServiceArray = this.state.serviceArray;
+
+                localScopeServiceArray.push(service.data);
+
+                this.setState({
+                    serviceArray: localScopeServiceArray
+                }, () => {
+                    this.setCategoryArray();
+                })
+
+            } catch (e) {
+                console.log(e)
+            }
+        }
+    };
+
     deleteCurrentBusiness = async () => {
+
+        const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
+        const parsed = Token;
+
+        delete parsed.currentBusiness;
+
+        localStorage.setItem('okta-token-storage', JSON.stringify(parsed));
+
+
         try {
             const res = await API.deleteBusiness(this.state.business._id)
 
@@ -68,42 +259,6 @@ export default class Edit extends Component {
             console.log(e);
         }
     };
-
-    defaultColors = () => {
-        const business = this.state.business;
-        business.colorOne = '#f6f6f6';
-        business.colorTwo = '#e9e9e9';
-
-        this.forceUpdate();
-    }
-
-    handleChangeColorOne = (color) => {
-        const business = this.state.business;
-        business.colorOne = color.hex;
-
-        this.forceUpdate();
-        
-        console.log(this.state)
-    };
-
-    handleChangeColorTwo = (color) => {
-        const business = this.state.business;
-        business.colorTwo = color.hex;
-
-        this.forceUpdate();
-        
-        console.log(this.state)
-        //this.setState({ colorTwo: color.hex }, console.log(this.state));
-    };
-
-    handleChange = (e, { name, value }) => {
-        const business = this.state.business;
-        business[name] = value
-
-        this.forceUpdate();
-
-        console.log(this.state.business)
-    }
 
     handleOpen = () => {
         this.setState({ isOpen: true })
@@ -124,11 +279,153 @@ export default class Edit extends Component {
         } catch (e) {
             console.log(e)
         }
-    } 
+    };
 
     render() {
 
+        const ifServices = !this.state.serviceArray.length ? (
+            <div></div>
+        ) : (
+                <Form.Field width={5}>
+                    <label>Category</label>
+                    <Dropdown
+                        fluid
+                        onChange={this.handleServiceChange}
+                        closeOnChange
+                        selection
+                        options={this.state.categoryArray}
+                        name="serviceCategory"
+                        placeholder='Category' />
+                </Form.Field>
+            )
 
+        const ifSelectedService = this.state.selectedService === null ? (
+            <div></div>
+        ) : (
+                <div>
+                    <Form.Group>
+                        <Form.Input
+                            name='serviceCategory'
+                            value={this.state.fullSelectedService.serviceCategory}
+                            onChange={this.handleSelectedServiceChange}
+                            width={6}
+                            label='Category'
+                            placeholder='Hair Services' />
+                        <Form.Input
+                            name='serviceName'
+                            value={this.state.fullSelectedService.serviceName}
+                            onChange={this.handleSelectedServiceChange}
+                            width={6}
+                            label='Service Name'
+                            placeholder='Service Name' />
+                    </Form.Group>
+                    <Form.Group>
+
+                        <Form.Input
+                            name='serviceDescription'
+                            value={this.state.fullSelectedService.serviceDescription}
+                            width={14}
+                            label='Service Description'
+                            placeholder='A snippy snappy stylish cut!' />
+                        <Form.Input
+                            name='servicePrice'
+                            value={this.state.fullSelectedService.servicePrice}
+                            fluid
+                            width={2}
+                            label='Service Price'
+                            placeholder='80' />
+                    </Form.Group>
+                    <br />
+                    <Form.Group>
+
+                        <Form.Field>
+                            <Button color='blue' floated='left' type='submit' >Save Service</Button>
+                        </Form.Field>
+                    </Form.Group>
+                    <br />
+                </div>
+            )
+
+        const ifEditServices = !this.state.serviceArray.length ? (
+            <div></div>
+        ) : (
+                <div>
+                    <Header icon='camera retro' content='Change Your Colors' />
+                    <Divider />
+                    <Form.Group>
+                        <Form.Field>
+                            <label>Color One</label>
+                            <CirclePicker className='picker' color={this.state.business.colorOne} onChangeComplete={this.handleChangeColorOne} />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>Color Two</label>
+                            <CirclePicker className='picker' color={this.state.business.colorTwo} onChangeComplete={this.handleChangeColorTwo} />
+                        </Form.Field>
+                        <Form.Field>
+                            <label>Color Three</label>
+                            <CirclePicker className='picker' color={this.state.business.colorThree} onChangeComplete={this.handleChangeColorThree} />
+                        </Form.Field>
+                    </Form.Group>
+                    <br></br>
+                    <Form.Group>
+                        <Form.Field>
+                            <Button color='blue' floated='right' onClick={this.defaultColors}>Default Colors</Button>
+                        </Form.Field>
+                    </Form.Group>
+                </div>
+            )
+
+        const ifSaveServices = !this.state.serviceArray.length ? (
+            <div>
+                <Header icon='camera retro' content='Change Your Colors' />
+                <Divider />
+                <Form.Group>
+                    <Form.Field>
+                        <label>Color One</label>
+                        <CirclePicker className='picker' color={this.state.business.colorOne} onChangeComplete={this.handleChangeColorOne} />
+                    </Form.Field>
+                    <Form.Field>
+                        <label>Color Two</label>
+                        <CirclePicker className='picker' color={this.state.business.colorTwo} onChangeComplete={this.handleChangeColorTwo} />
+                    </Form.Field>
+                    <Form.Field>
+                        <label>Color Three</label>
+                        <CirclePicker className='picker' color={this.state.business.colorThree} onChangeComplete={this.handleChangeColorThree} />
+                    </Form.Field>
+                </Form.Group>
+                <br></br>
+                <Form.Group>
+                    <Form.Field>
+                        <Button color='blue' floated='right' onClick={this.defaultColors}>Default Colors</Button>
+                    </Form.Field>
+                </Form.Group>
+            </div>
+
+        ) : (
+                <div>
+                    <Header icon='pencil alternate' content='Edit Your Services' />
+                    <Divider />
+                    <Form.Group>
+                        <Form.Field width={8}>
+                            <label>Select A Service</label>
+                            <Dropdown
+                                fluid
+                                onChange={this.handleServiceSelect}
+                                closeOnChange
+                                selection
+                                name="selectedService"
+                                options={this.state.serviceOptions}
+                                placeholder='Hair Services' />
+                        </Form.Field>
+                    </Form.Group>
+                    {ifSelectedService}
+
+                </div>
+            )
+
+
+
+        var randomnumber = Math.floor(Math.random() * 200000) + 111111;
 
         const ifLoading = this.state.loading ? (
             <Responsive>
@@ -137,7 +434,7 @@ export default class Edit extends Component {
         ) : (
                 <Responsive>
 
-                    <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler}/>
+                    <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler} />
                     <Divider />
                     <Grid padded>
                         <Grid.Row>
@@ -263,30 +560,64 @@ export default class Edit extends Component {
                                                 } />
                                         </Form.Field>
                                     </Form.Group>
-                                    <Header icon='camera retro' content='Change Your Colors' />
+                                    <Header icon='cut' content='Add Services' />
                                     <Divider />
                                     <Form.Group>
-                                        <Form.Field>
-                                            <label>Color One</label>
-                                            <CirclePicker className='picker' color={this.state.business.colorOne} onChangeComplete={this.handleChangeColorOne} />
-
-                                        </Form.Field>
-                                        <Form.Field>
-                                            <label>Color Two</label>
-                                            <CirclePicker className='picker' color={this.state.business.colorTwo} onChangeComplete={this.handleChangeColorTwo} />
-                                        </Form.Field>
+                                        <Form.Input
+                                            name='serviceCategory'
+                                            value={this.state.serviceCategory}
+                                            onChange={this.handleServiceChange}
+                                            fluid
+                                            width={5}
+                                            label='Category'
+                                            placeholder='Hair Services' />
+                                        {ifServices}
+                                        <Form.Input
+                                            name='serviceName'
+                                            value={this.state.serviceName}
+                                            onChange={this.handleServiceChange}
+                                            fluid
+                                            width={6}
+                                            label='Service Name'
+                                            placeholder='Haircut' />
                                     </Form.Group>
-                                    <br></br>
                                     <Form.Group>
+
+                                        <Form.Input
+                                            name='serviceDescription'
+                                            value={this.state.serviceDescription}
+                                            onChange={this.handleServiceChange}
+                                            width={14}
+                                            label='Service Description'
+                                            placeholder='A snippy snappy stylish cut!' />
+                                        <Form.Input
+                                            name='servicePrice'
+                                            value={this.state.servicePrice}
+                                            onChange={this.handleServiceChange}
+                                            fluid
+                                            width={2}
+                                            label='Service Price'
+                                            placeholder='80' />
+                                    </Form.Group>
+                                    <br />
+                                    <Form.Group>
+
                                         <Form.Field>
-                                        <Button color='blue' floated='right' onClick={this.defaultColors}>Default Colors</Button>
+                                            <Button color='blue' floated='left' type='submit' onClick={this.handleService}>Add Service</Button>
                                         </Form.Field>
                                     </Form.Group>
+                                    <br />
+                                    {ifSaveServices}
+                                    <br />
                                 </Form>
                             </Grid.Column>
                             <Grid.Column widescreen={8} largeScreen={8} computer={16} tablet={16} mobile={16}>
-                                <Header block>View Your Gift Before You Send It!</Header>
-                                <GiftPreview businessName={this.state.business.businessName} colorOne={this.state.business.colorOne} colorTwo={this.state.business.colorTwo} />
+                                <Form>
+                                    {ifEditServices}
+                                    <Header icon='image outline' content='Preview Your Gift' />
+                                    <Divider />
+                                    <GiftPreview businessName={this.state.business.businessName} code={randomnumber} colorOne={this.state.business.colorOne} colorTwo={this.state.business.colorTwo} colorThree={this.state.business.colorThree} />
+                                </Form>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

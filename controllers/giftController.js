@@ -471,10 +471,10 @@ module.exports = {
           >
             <tr>
               <td
-                 align="center" bgcolor="#4183c4" role="presentation" style="border:none;border-radius:3px;cursor:auto;padding:10px 25px;" valign="middle"
+                 align="center" bgcolor=${req.body.business.colorThree} role="presentation" style="border:none;border-radius:3px;cursor:auto;padding:10px 25px;" valign="middle"
               >
                 <p
-                   style="background:#4183c4;color:#ffffff;font-family:Verdana;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
+                   style="background:${req.body.business.colorThree};color:#ffffff;font-family:Verdana;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
                 >
                   Your Code Is: ${req.body.code}
                 </p>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Responsive } from 'semantic-ui-react';
+import { Responsive, Loader } from 'semantic-ui-react';
 import { withAuth } from '@okta/okta-react';
 import API from '../../util/API';
 //import { updateDB } from '../../util/logic';
@@ -50,14 +50,16 @@ export default withAuth(class AuthContainer extends Component {
         }
     }
 
-    adduId = (Token, uId) => {
+    adduId = async (Token, uId) => {
         const parsed = Token;
 
         parsed["userId"] = uId;
 
         localStorage.setItem('okta-token-storage', JSON.stringify(parsed));
 
-
+        await this.setState({
+            uId: uId
+        })
         console.log("Token with UID")
         console.log(Token);
         console.log("=============================================")
@@ -95,12 +97,20 @@ export default withAuth(class AuthContainer extends Component {
 
         if (this.state.authenticated === null) return null;
 
+        const ifLoading = !this.state.uId ? (
+
+            <Responsive>
+                <Loader size='massive' active inline='centered'>Loading Content</Loader>
+            </Responsive>
+        ) : (
+            <Responsive>
+                <SecureRoute path="/dashboard" exact={false} render={(props) => <Dashboard {...props} uid={this.state.uId} logout={this.logout} />} />
+            </Responsive>
+        )
+
         return (
             <div>
-            <Responsive>
-                <SecureRoute path="/dashboard" exact={false} render={(props) => <Dashboard {...props} login={this.login} logout={this.logout} />} />
-            </Responsive>
-               
+                {ifLoading}
             </div>
         );
     }

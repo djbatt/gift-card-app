@@ -7,6 +7,21 @@ export default {
     return axios.post(`/api/gift`, emailBody)
   },
 
+  //Service API below
+
+  addService: function(serviceBody) {
+    return axios.post(`/api/service`, serviceBody)
+  },
+
+  getService: function(serviceId) {
+    console.log(serviceId)
+    return axios.get(`/api/service/get/${serviceId}`)
+  },
+
+  getServices: function(businessId) {
+    return axios.get(`/api/service/${businessId}`)
+  },
+
   //Business API below
 
   //Save a new business to the db
