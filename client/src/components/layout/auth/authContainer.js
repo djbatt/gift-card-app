@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Responsive, Loader } from 'semantic-ui-react';
+import { Responsive } from 'semantic-ui-react';
 import { withAuth } from '@okta/okta-react';
 import API from '../../util/API';
 //import { updateDB } from '../../util/logic';
@@ -99,9 +99,7 @@ export default withAuth(class AuthContainer extends Component {
 
         const ifLoading = !this.state.uId ? (
 
-            <Responsive>
-                <Loader size='massive' active inline='centered'>Loading Content</Loader>
-            </Responsive>
+            <div></div>
         ) : (
             <Responsive>
                 <SecureRoute path="/dashboard" exact={false} render={(props) => <Dashboard {...props} logout={this.logout} />} />
