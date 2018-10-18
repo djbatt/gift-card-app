@@ -104,7 +104,7 @@ export default withAuth(class AuthContainer extends Component {
             </Responsive>
         ) : (
             <Responsive>
-                <SecureRoute path="/dashboard" exact={false} render={(props) => <Dashboard {...props} uid={this.state.uId} logout={this.logout} />} />
+                <SecureRoute path="/dashboard" exact={false} render={(props) => <Dashboard {...props} logout={this.logout} />} />
             </Responsive>
         )
 

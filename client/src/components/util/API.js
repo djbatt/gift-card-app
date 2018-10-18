@@ -7,10 +7,32 @@ export default {
     return axios.post(`/api/gift`, emailBody)
   },
 
+  //Category API below
+
+  addCategory: function(catBody) {
+    return axios.post(`/api/service/cat`, catBody)
+  },
+
+  addServiceToCategory: function(adstcBody) {
+    return axios.post(`/api/service/addserv/`, adstcBody)
+  },
+
+  getCategories: function(businessId) {
+    return axios.get(`/api/service/getcats/${businessId}`)
+  },
+
+  getCatByName: function(businessID, catName) {
+    return axios.post(`/api/service/getcats/${businessID}`, {category: catName})
+  },
+
   //Service API below
 
   addService: function(serviceBody) {
     return axios.post(`/api/service`, serviceBody)
+  },
+  
+  addCategoryToService: function(adctsBody) {
+    return axios.post(`/api/service/addcat`, adctsBody)
   },
 
   getService: function(serviceId) {
@@ -65,10 +87,5 @@ export default {
   //Add the user to our db if it doesn't exist
   saveUser: function(userData) {
     return axios.post(`/api/users/`, userData);
-  },
-
-  //check if the user has a business
-  hasBusiness: function(id) {
-    return axios.get(`api/users/ifb/${id}`);
   }
 };

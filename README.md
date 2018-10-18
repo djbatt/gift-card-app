@@ -4,6 +4,10 @@ This app is based off React on the front end, and uses MongoDB as a database
 
 ==========================================================
 
+uGift Online is an app that lets business owners add a cash and service gifting platform to their website. Business owners can modify their email template and their gift platform.
+
+==========================================================
+
 App use case structure:
 
 Home (Not Logged in) can access home, and contact, and login

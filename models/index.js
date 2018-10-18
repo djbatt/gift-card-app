@@ -3,6 +3,7 @@ module.exports = {
     Business: require('./business'),
     Gift: require('./gift'),
     Source: require('./source'),
-    Service: require('./service')
+    Service: require('./service'),
+    Category: require('./category')
 };
   

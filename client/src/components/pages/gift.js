@@ -9,6 +9,7 @@ export default class Gift extends Component {
         business: {},
         loading: true,
         gift: '',
+        giftType: '',
         dollarAmount: '',
         chosenCode: '',
         design: '',
@@ -77,27 +78,33 @@ export default class Gift extends Component {
             chosenCode: giftCode
         }, async () => {
 
-            const emailData = {
-                business: this.state.business,
-                recipientEmail: this.state.recipientEmail,
-                recipientName: this.state.recipientName,
-                giftTitle: this.state.giftTitle,
-                giftMessage: this.state.giftMessage,
-                giftTo: this.state.giftTo,
-                giftFrom: this.state.giftFrom,
-                sourceEmail: this.state.sourceEmail,
-                sourcePhone: this.state.sourcePhone,
-                sourceFirst: this.state.sourceFirst,
-                sourceLast: this.state.sourceLast,
-                code: this.state.chosenCode,
-                gift: this.state.dollarAmount
-            }
+            if (this.state.giftType === 'dollar') {
 
-            try {
-                const data = await API.sendEmail(emailData)
-                console.log(data)
-            } catch (e) {
-                console.log(e)
+                const emailData = {
+                    business: this.state.business,
+                    recipientEmail: this.state.recipientEmail,
+                    recipientName: this.state.recipientName,
+                    giftTitle: this.state.giftTitle,
+                    giftMessage: this.state.giftMessage,
+                    giftTo: this.state.giftTo,
+                    giftFrom: this.state.giftFrom,
+                    sourceEmail: this.state.sourceEmail,
+                    sourcePhone: this.state.sourcePhone,
+                    sourceFirst: this.state.sourceFirst,
+                    sourceLast: this.state.sourceLast,
+                    code: this.state.chosenCode,
+                    gift: `$${this.state.gift}`
+                }
+
+                try {
+                    const data = await API.sendEmail(emailData)
+                    console.log(data)
+                } catch (e) {
+                    console.log(e)
+                }
+
+            } else {
+                
             }
 
         })
@@ -140,8 +147,8 @@ export default class Gift extends Component {
 
         const dollarType = this.state.giftType === 'dollar' ? (
             <Form.Input
-                name='dollarAmount'
-                value={this.state.dollarAmount}
+                name='gift'
+                value={this.state.gift}
                 onChange={this.handleFormChange}
                 width={2}
                 label='Amount in $'
