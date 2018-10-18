@@ -63,11 +63,11 @@ module.exports = {
             </style>
             
           </head>
-          <body style="background-color:${req.body.colorTwo};">
+          <body style="background-color:${req.body.business.colorTwo};">
             
             
           <div
-             style="background-color:${req.body.colorTwo};"
+             style="background-color:${req.body.business.colorTwo};"
           >
             
           
@@ -80,10 +80,10 @@ module.exports = {
           <![endif]-->
         
           
-          <div  style="background:${req.body.colorTwo};background-color:${req.body.colorTwo};Margin:0px auto;max-width:600px;">
+          <div  style="background:${req.body.business.colorTwo};background-color:${req.body.business.colorTwo};Margin:0px auto;max-width:600px;">
             
             <table
-               align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.colorTwo};background-color:${req.body.colorTwo};width:100%;"
+               align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.business.colorTwo};background-color:${req.body.business.colorTwo};width:100%;"
             >
               <tbody>
                 <tr>
@@ -120,10 +120,10 @@ module.exports = {
           <![endif]-->
         
           
-          <div  style="background:${req.body.colorOne};background-color:${req.body.colorOne};Margin:0px auto;max-width:600px;">
+          <div  style="background:${req.body.business.colorOne};background-color:${req.body.business.colorOne};Margin:0px auto;max-width:600px;">
             
             <table
-               align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.colorOne};background-color:${req.body.colorOne};width:100%;"
+               align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.business.colorOne};background-color:${req.body.business.colorOne};width:100%;"
             >
               <tbody>
                 <tr>
@@ -156,7 +156,7 @@ module.exports = {
           <div
              style="font-family:Verdana;font-size:32px;line-height:1;text-align:center;color:#000000;"
           >
-            ${req.body.business}
+            ${req.body.business.businessName}
           </div>
         
                   </td>
@@ -168,13 +168,13 @@ module.exports = {
                   >
                     
           <p
-             style="border-top:solid 2px ${req.body.colorTwo};font-size:1;margin:0px auto;width:100%;"
+             style="border-top:solid 2px ${req.body.business.colorTwo};font-size:1;margin:0px auto;width:100%;"
           >
           </p>
           
           <!--[if mso | IE]>
             <table
-               align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 2px ${req.body.colorTwo};font-size:1;margin:0px auto;width:550px;" role="presentation" width="550px"
+               align="center" border="0" cellpadding="0" cellspacing="0" style="border-top:solid 2px ${req.body.business.colorTwo};font-size:1;margin:0px auto;width:550px;" role="presentation" width="550px"
             >
               <tr>
                 <td style="height:0;line-height:0;">
@@ -196,7 +196,7 @@ module.exports = {
           <div
              style="font-family:Verdana;font-size:32px;line-height:1;text-align:center;color:#000000;"
           >
-            ${req.body.title}
+            ${req.body.giftTitle}
           </div>
         
                   </td>
@@ -210,7 +210,7 @@ module.exports = {
           <div
              style="font-family:Verdana;font-size:15px;line-height:1;text-align:center;color:#000000;"
           >
-            ${req.body.message}
+            ${req.body.giftMessage}
           </div>
         
                   </td>
@@ -248,10 +248,10 @@ module.exports = {
           <![endif]-->
         
           
-          <div  style="background:${req.body.colorOne};background-color:${req.body.colorOne};Margin:0px auto;max-width:600px;">
+          <div  style="background:${req.body.business.colorOne};background-color:${req.body.business.colorOne};Margin:0px auto;max-width:600px;">
             
             <table
-               align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.colorOne};background-color:${req.body.colorOne};width:100%;"
+               align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.business.colorOne};background-color:${req.body.business.colorOne};width:100%;"
             >
               <tbody>
                 <tr>
@@ -284,7 +284,7 @@ module.exports = {
           <div
              style="font-family:Verdana;font-size:15px;line-height:1;text-align:left;color:#000000;"
           >
-            To: ${req.body.to}
+            To: ${req.body.giftTo}
           </div>
         
                   </td>
@@ -318,7 +318,7 @@ module.exports = {
           <div
              style="font-family:Verdana;font-size:15px;line-height:1;text-align:left;color:#000000;"
           >
-            From: ${req.body.from}
+            From: ${req.body.giftFrom}
           </div>
         
                   </td>
@@ -356,10 +356,10 @@ module.exports = {
           <![endif]-->
         
           
-          <div  style="background:${req.body.colorOne};background-color:${req.body.colorOne};Margin:0px auto;max-width:600px;">
+          <div  style="background:${req.body.business.colorOne};background-color:${req.body.business.colorOne};Margin:0px auto;max-width:600px;">
             
             <table
-               align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.colorOne};background-color:${req.body.colorOne};width:100%;"
+               align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.business.colorOne};background-color:${req.body.business.colorOne};width:100%;"
             >
               <tbody>
                 <tr>
@@ -429,14 +429,14 @@ module.exports = {
               <td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;">
           
             <v:rect  style="width:600px;" xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false">
-            <v:fill  origin="0.5, 0" position="0.5, 0" src="https://i.imgur.com/oDwzfuj.jpg" color="${req.body.colorOne}" type="tile" />
+            <v:fill  origin="0.5, 0" position="0.5, 0" src="https://i.imgur.com/oDwzfuj.jpg" color="${req.body.business.colorOne}" type="tile" />
             <v:textbox style="mso-fit-shape-to-text:true" inset="0,0,0,0">
           <![endif]-->
               
-          <div  style="background:${req.body.colorOne} url(https://i.imgur.com/oDwzfuj.jpg) top center / auto repeat;Margin:0px auto;max-width:600px;">
+          <div  style="background:${req.body.business.colorOne} url(https://i.imgur.com/oDwzfuj.jpg) top center / auto repeat;Margin:0px auto;max-width:600px;">
             <div  style="line-height:0;font-size:0;">
             <table
-               align="center" background="https://i.imgur.com/oDwzfuj.jpg" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.colorOne} url(https://i.imgur.com/oDwzfuj.jpg) top center / auto repeat;width:100%;"
+               align="center" background="https://i.imgur.com/oDwzfuj.jpg" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.business.colorOne} url(https://i.imgur.com/oDwzfuj.jpg) top center / auto repeat;width:100%;"
             >
               <tbody>
                 <tr>
@@ -471,10 +471,10 @@ module.exports = {
           >
             <tr>
               <td
-                 align="center" bgcolor="#4183c4" role="presentation" style="border:none;border-radius:3px;cursor:auto;padding:10px 25px;" valign="middle"
+                 align="center" bgcolor=${req.body.business.colorThree} role="presentation" style="border:none;border-radius:3px;cursor:auto;padding:10px 25px;" valign="middle"
               >
                 <p
-                   style="background:#4183c4;color:#ffffff;font-family:Verdana;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
+                   style="background:${req.body.business.colorThree};color:#ffffff;font-family:Verdana;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;"
                 >
                   Your Code Is: ${req.body.code}
                 </p>
@@ -519,10 +519,10 @@ module.exports = {
           <![endif]-->
         
           
-          <div  style="background:${req.body.colorTwo};background-color:${req.body.colorTwo};Margin:0px auto;max-width:600px;">
+          <div  style="background:${req.body.business.colorTwo};background-color:${req.body.business.colorTwo};Margin:0px auto;max-width:600px;">
             
             <table
-               align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.colorTwo};background-color:${req.body.colorTwo};width:100%;"
+               align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="background:${req.body.business.colorTwo};background-color:${req.body.business.colorTwo};width:100%;"
             >
               <tbody>
                 <tr>
@@ -559,20 +559,34 @@ module.exports = {
         </html>
       `
 
-    const details = req.body;
-
     sgMail.setApiKey("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");
     const msg = {
-      to: details.recipientEmail,
+      to: req.body.recipientEmail,
       from: {
         email: 'gift@ugift.online.com',
-        name: req.body.business
+        name: req.body.business.businessName
       },
-      subject: `Someone just gave you a gift for: ${req.body.business}`,
+      subject: `Someone just gave you a gift for: ${req.body.business.businessName}`,
       text: 'Your Gift Has Arrived!',
       html: htmlOut,
     };
     sgMail.send(msg), console.log("sent");
+
+    db.Gift
+    .create({
+      dollar: req.body.gift,
+      recipientEmail: req.body.recipientEmail,
+      recipientName: req.body.recipientName,
+      giftTitle: req.body.giftTitle,
+      giftMessage: req.body.giftMessage,
+      giftTo: req.body.giftTo,
+      giftFrom: req.body.giftFrom,
+      business: req.body.business._id
+    })
+    .then(dbModel => res.json(dbModel)
+    ).catch(err => res.status(422).json(err))
+
+    console.log(req.body);
 
   }
 

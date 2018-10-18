@@ -10,27 +10,23 @@ export default class MyBusiness extends Component {
     business: {}
   }
 
-  async componentDidMount() {
+  componentDidMount() {
 
-    console.log("Path", this.props.match)
+    console.log("Path", this.props)
 
     const Token = JSON.parse(localStorage.getItem('okta-token-storage'));
 
-    if (!Token.hasOwnProperty("userId")) {
-      console.log("No user ID");
+    if (!Token.hasOwnProperty("currentBusiness")) {
+      console.log("No current Business");
+      this.setState({
+        loading: false
+      }, () => {
+        console.log(this.props.history)
+        this.props.history.push("/dashboard/select");
+      })
     } else {
-
-      if (!Token.hasOwnProperty("currentBusiness")) {
-        console.log("No current Business");
-        this.setState({
-          loading: false
-        }, () => {
-          this.props.history.push("/dashboard/select");
-        })
-      } else {
-        console.log("You have a business selected");
-        this.getBusiness(Token.currentBusiness);
-      }
+      console.log("You have a business selected");
+      this.getBusiness(Token.currentBusiness);
     }
   }
 
@@ -62,17 +58,16 @@ export default class MyBusiness extends Component {
       </Responsive>
     ) : (
         <Responsive>
-
-          <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout}/>
+          <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler}/>
           <Divider />
           <Header block>
             <Icon name='linkify'/>
             <Header.Content><Link to={yourURl} target="_blank">Your Gift Page</Link></Header.Content>
           </Header>
           <Grid celled='internally'>
-              <Grid.Column widescreen={8} largeScreen={8} computer={8} tablet={8} mobile={16} color='blue'>
+              <Grid.Column widescreen={8} largeScreen={8} computer={8} tablet={8} mobile={16}>
               </Grid.Column>
-              <Grid.Column widescreen={8} largeScreen={8} computer={8} tablet={8} mobile={16} color='red'>
+              <Grid.Column widescreen={8} largeScreen={8} computer={8} tablet={8} mobile={16}>
               </Grid.Column>
           </Grid>
         </Responsive>

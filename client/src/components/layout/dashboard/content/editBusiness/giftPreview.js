@@ -110,7 +110,7 @@ export default function giftPreview(props) {
                           <tr>
                             <td align="center" style={{fontSize: 0, padding: '10px 25px', wordBreak: 'break-word'}}>
                               <div style={{fontFamily: 'Verdana', fontSize: 32, lineHeight: 1, textAlign: 'center', color: '#000000'}}>
-                                Example Title
+                                Happy Birthday!
                               </div>
                             </td>
                           </tr>
@@ -285,9 +285,9 @@ export default function giftPreview(props) {
                               <td align="center" vertical-align="middle" style={{fontSize: 0, padding: '10px 25px', paddingTop: 60, paddingBottom: 60, wordBreak: 'break-word'}}>
                                 <table align="center" border={0} cellPadding={0} cellSpacing={0} role="presentation" style={{borderCollapse: 'separate', lineHeight: '100%'}}>
                                   <tbody><tr>
-                                      <td align="center" bgcolor="#4183c4" role="presentation" style={{border: 'none', borderRadius: 3, cursor: 'auto', padding: '10px 25px'}} valign="middle">
-                                        <p style={{background: '#4183c4', color: '#ffffff', fontFamily: 'Verdana', fontSize: 13, fontWeight: 'normal', lineHeight: '120%', margin: 0, textDecoration: 'none', textTransform: 'none'}}>
-                                          Your Code Is: 000000
+                                      <td align="center" bgcolor={props.colorThree} role="presentation" style={{border: 'none', borderRadius: 3, cursor: 'auto', padding: '10px 25px'}} valign="middle">
+                                        <p style={{background: props.colorThree, color: '#ffffff', fontFamily: 'Verdana', fontSize: 13, fontWeight: 'normal', lineHeight: '120%', margin: 0, textDecoration: 'none', textTransform: 'none'}}>
+                                          Your Code Is: {props.code}
                                         </p>
                                       </td>
                                     </tr>
