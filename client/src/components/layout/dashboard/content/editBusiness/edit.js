@@ -194,6 +194,7 @@ export default class Edit extends Component {
                     servicePrice: ''
                 }, () => {
                     this.getServices(Token.currentBusiness)
+                    this.getCategories(Token.currentBusiness)
                 })
 
             } catch (e) {
@@ -237,6 +238,7 @@ export default class Edit extends Component {
                     servicePrice: ''
                 }, () => {
                     this.getServices(Token.currentBusiness)
+                    this.getCategories(Token.currentBusiness)
                 })
 
             } catch (e) {
