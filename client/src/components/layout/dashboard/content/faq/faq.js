@@ -6,7 +6,7 @@ export default class FAQ extends Component {
 
     render() {
         return (
-            <Responsive>
+            <Responsive className='fillPage'>
 
 
           <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler}/>

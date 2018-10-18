@@ -101,7 +101,7 @@ export default class createBusiness extends Component {
     render() {
 
         return (
-            <Responsive>
+            <Responsive className='fillPage'>
 
                 <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler}/>
                 <Divider />
