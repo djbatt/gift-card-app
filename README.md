@@ -1,57 +1,25 @@
-==========================================================
+========================================================================================================================================
 
-This app is based off React on the front end, and uses MongoDB as a database
+uGift is an online service provider for small business owners. It allows small business owners to add online gift cards for dollar amounts and services to their business website.
 
-==========================================================
+========================================================================================================================================
 
-uGift Online is an app that lets business owners add a cash and service gifting platform to their website. Business owners can modify their email template and their gift platform.
+Business(s) get their own unique URI on our webpage to host their gifting platform
 
-==========================================================
+========================================================================================================================================
 
-App use case structure:
+Business owners can have multiple business' stored under one account and manage them all from one dashboard. The application has been built to make sure we are only retrieving the correct data.
 
-Home (Not Logged in) can access home, and contact, and login
+The app is based off of Facebook React, with Okta Authentication to handle login/logout. The emails are formatted with MJML and sent through sendgrid
 
-Once logged we also store your user in the db, which relates to a business or (many business') (Must create business and pay registration fee before next step)
+========================================================================================================================================
 
-Once you create your business, we give you access to your dashboard (Which is where you can create a gift card page and manage it)
+FUTURE ->
 
-Most features require a business and then a page to be used
+Implement Redux (in progress)
 
-==========================================================
+Build for proper data requests (in progress)
 
-Mongo Structure
+Rebuild UI (in progress)
 
-User > Business > Cards/Sources/Recipients
-
-Recipients/Sources > Cards > Business
-
-Cards > Sources/Clients > Business
-
-Payment ID if we can get it
-
-==========================================================
-
-Contact info needed from purchaser {Email, Name, Phone Number}
-// We put these in our database of clients, which relates to their gifts/purchases so they cannot be lost
-
-Info needed for our database, Recipients first (and or last name), these are not required
-// If provided we store them with the gift in our database
-
-eGift Delivery options {email, print, email and print} chosen by business
-// The business chooses which of the three or all are on the page, and then the client chooses which one they want, if email is chosen open a modal/form and add email input, and a date to email it
-
-Gift Types {Dollar Amount, and Services}
-// Owner chooses which of the two are on the page or both if service display services and allow multiple services to be displayed, also add an option for show service price
-
-Owner can choose if they want their own image as a gift card background, or they can choose if they want the clients to select from an array of background options
-The array of choices also has an option to choose what type of occasion its for, the owner chosen is always the first though, no matter what occasion choice
-Client chooses what background they want in the array case
-//Owner can combine the two and put their image within the array of options
-
-To and From which is optional on the client side
-and a message to leave for the recipient
-
-Finally add payment
-
-User signs in, they go to a business choosing component, it checks if the user has any business(s), if they have only one display the dashboard for it, if they have multiple create a selection for each business, if they have none bring them to create a business
+After these three have been taken care of and are good enough for me I can continue working on core functionality again. A good foundation is needed so we don't have a shaky prod!
