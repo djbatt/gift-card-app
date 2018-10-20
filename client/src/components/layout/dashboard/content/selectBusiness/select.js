@@ -35,8 +35,14 @@ export default class Select extends Component {
                     this.setState({
                         businessArray: res.data,
                         loading: false
-                    });
+                    }, () => {
 
+                        if (res.data.length === 1) {
+                            this.addCurrentBusiness(res.data[0]._id)
+                        }
+
+
+                    });
                 }
 
 
@@ -95,7 +101,7 @@ export default class Select extends Component {
         ) : (
                 <Responsive>
 
-                    <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler}/>
+                    <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler} />
                     <Divider />
                     <Segment>
                         <Item.Group divided relaxed>

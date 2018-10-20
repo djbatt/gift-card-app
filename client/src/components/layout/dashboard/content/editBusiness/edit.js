@@ -126,19 +126,25 @@ export default class Edit extends Component {
 
     catCheck = async () => {
 
+        if (!this.state.categoryArray.length) {
+            this.addService();
+        } else {
 
-        for (var i = 0; i < this.state.categoryArray.length; i++) {
-            if (this.state.categoryArray[i].category === this.state.category) {
 
-                this.setState({
-                    inCategory: true
-                }, () => {
+            for (var i = 0; i < this.state.categoryArray.length; i++) {
+                if (this.state.categoryArray[i].category === this.state.category) {
+
+                    this.setState({
+                        inCategory: true
+                    }, () => {
+                        this.addService();
+                    })
+                } else {
                     this.addService();
-                })
-            } else {
-                this.addService();
+                }
             }
         }
+
     }
 
     addService = async () => {
@@ -188,6 +194,7 @@ export default class Edit extends Component {
                     servicePrice: ''
                 }, () => {
                     this.getServices(Token.currentBusiness)
+                    this.getCategories(Token.currentBusiness)
                 })
 
             } catch (e) {
@@ -223,7 +230,7 @@ export default class Edit extends Component {
                 console.log(adcts);
                 const adstc = await API.addServiceToCategory(adstcBody)
                 console.log(adstc);
-                
+
                 this.setState({
                     category: '',
                     serviceName: '',
@@ -231,6 +238,7 @@ export default class Edit extends Component {
                     servicePrice: ''
                 }, () => {
                     this.getServices(Token.currentBusiness)
+                    this.getCategories(Token.currentBusiness)
                 })
 
             } catch (e) {

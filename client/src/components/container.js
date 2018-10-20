@@ -11,7 +11,7 @@ import Gift from './pages/gift';
 import AuthContainer from './layout/auth/authContainer'
 
 //Okta
-import { Security, ImplicitCallback } from '@okta/okta-react';
+import { Security, ImplicitCallback, SecureRoute } from '@okta/okta-react';
 import Login from './layout/auth/login';
 
 function AuthHandler({ history }) {
@@ -31,7 +31,7 @@ export default class TotalContainer extends Component {
     return (
       <Router>
         <Security issuer={config.issuer} client_id={config.client_id} redirect_uri={config.redirect_uri} onAuthRequired={AuthHandler}>
-          <AuthContainer />
+          <SecureRoute path='/dashboard' exact={false} component={AuthContainer}/>
           <Route path="/" exact={true} component={Home}/>
           <Route path="/pricing" exact={true} component={Pricing} />
           <Route path="/contact" exact={true} component={Contact} />
