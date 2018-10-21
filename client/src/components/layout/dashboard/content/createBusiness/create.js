@@ -28,8 +28,7 @@ export default class createBusiness extends Component {
             console.log("No user ID");
         } else {
             this.setState({
-                loading: false,
-                user: Token.userId
+                loading: false
             })
         }
     }
