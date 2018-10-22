@@ -1,0 +1,7 @@
+.ui.secondary.pointing.menu {
+    border-bottom: 0px none !important;
+}
+
+.ui.secondary.pointing.menu .item:hover {
+    border-color: #1b1c1e;
+}

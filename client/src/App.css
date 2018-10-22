@@ -1,17 +1,3 @@
-.noBar {
-    border-bottom: 0px none !important;
-}
-
-.topNavMargin {
-    margin-top: 14px !important;
-}
-
-@media only screen and (max-width: 768px) {
-    .topNavMargin {
-        margin-top: 0px !important;
-    }
-}
-
 .okta-sign-in-header {
     display: none !important;
 }
@@ -46,25 +32,8 @@
     padding: 14px 7px 14px 7px !important;
 }
 
-.ui.secondary.pointing.menu .item:hover {
-    border-color: #1b1c1e;
-}
-
-.fillPage {
-    min-height: 100vh;
-    height: 100%;
-}
-
 .dashLogoWide {
     margin: 2rem auto !important; 
-}
-
-.sideNav {
-    background-color: #f2f2f2;
-}
-
-.dashboardContent {
-    background-color: #f8f8f8 !important;
 }
 
 .picker {
