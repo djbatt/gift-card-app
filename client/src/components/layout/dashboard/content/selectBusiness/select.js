@@ -99,7 +99,7 @@ export default class Select extends Component {
                 <Loader size='massive' active inline='centered'>Loading Content</Loader>
             </Responsive>
         ) : (
-                <Responsive>
+                <Responsive className='fillPage'>
 
                     <BreadCrumb pathName={this.props.location.pathname} logout={this.props.logout} handler={this.props.handler} />
                     <Divider />
